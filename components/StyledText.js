@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text as RNText } from 'react-native';
 
-export function MonoText(props) {
-  return <Text {...props} style={[props.style, { fontFamily: 'space-mono' }]} />;
+export function Text(props) {
+  return <RNText {...props} style={[props.style, { fontFamily: 'rubik' }]} />;
 }

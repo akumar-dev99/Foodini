@@ -1,8 +1,15 @@
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+// Import Screens
+import ProfileScreen from '../screens/ProfileScreen';
+import DishScreen from '../screens/DishScreen';
+import RestaurantScreen from '../screens/RestaurantScreen';
+
+// Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Dishes';
@@ -14,10 +21,14 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}
+      tabBarOptions={{ 
+        labelStyle: styles.tabLabel,
+      }}
+    >
       <BottomTab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           title: 'Profile',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-person" />,
@@ -25,7 +36,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Dishes"
-        component={HomeScreen}
+        component={DishScreen}
         options={{
           title: 'Dishes',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pizza" />,
@@ -33,7 +44,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Restaurants"
-        component={LinksScreen}
+        component={RestaurantScreen}
         options={{
           title: 'Restaurants',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
@@ -43,6 +54,12 @@ export default function BottomTabNavigator({ navigation, route }) {
   );
 }
 
+const styles = StyleSheet.create({
+  tabLabel: {
+    fontFamily: "rubik",
+  }
+})
+
 function getHeaderTitle(route) {
-  return 'Foodini';
+  return "Foodini";
 }

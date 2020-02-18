@@ -8,8 +8,9 @@ export default function(containerRef) {
       Root: {
         path: 'root',
         screens: {
-          Home: 'home',
-          Links: 'links',
+          Dish: 'dish',
+          Restaurants: 'restaurant',
+          Profile: 'profile',
           Settings: 'settings',
         },
       },
