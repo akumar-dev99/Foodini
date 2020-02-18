@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from '../components/StyledText';
 
 // Import Screens
 import ProfileScreen from '../screens/ProfileScreen';
@@ -31,7 +32,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ProfileScreen}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-person" />,
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon focused={focused} name="ios-person" />,
         }}
       />
       <BottomTab.Screen
@@ -39,7 +41,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={DishScreen}
         options={{
           title: 'Dishes',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pizza" />,
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon focused={focused} name="md-pizza" />,
         }}
       />
       <BottomTab.Screen
@@ -47,7 +50,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={RestaurantScreen}
         options={{
           title: 'Restaurants',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon focused={focused} name="md-restaurant" />,
         }}
       />
     </BottomTab.Navigator>
@@ -61,5 +65,14 @@ const styles = StyleSheet.create({
 })
 
 function getHeaderTitle(route) {
-  return "Foodini";
+  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+
+  switch (routeName) {
+    case 'Profile':
+      return <Text> Profile </Text>
+    case 'Dishes':
+      return <Text> Explore your tastes </Text>
+    case 'Restaurants':
+      return <Text> Find your platter </Text>;
+  }
 }
