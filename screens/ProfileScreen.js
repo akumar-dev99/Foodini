@@ -2,12 +2,24 @@ import * as React from 'react';
 import { StyleSheet, View, Text as RNText, ScrollView } from 'react-native';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
-import { Badge } from 'react-native-elements';
+import { Badge, ListItem } from 'react-native-elements';
 
 // Import custom components for this profile screen
 import UserAvatar from '../components/ProfileScreen/UserAvatar';
 
-const interests = ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"];
+const userInfo = {
+  interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
+  basicInfo: {
+    address: "39-02 Primary Avenue",
+    city: "Cape Town",
+    ethnicity: "Asian"
+  },
+  likes: 5004,
+  reviews: 109,
+  name: "Johnny Sins",
+  bio: "I'm an easy going foodie new in town. I love to eat Korean food. It's a pleasure eating.",
+  avatarImage: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"
+}
 
 export default function ProfileScreen(props) {
   return (
@@ -15,10 +27,10 @@ export default function ProfileScreen(props) {
 
       {/* Introduction Section */}
       <View style={styles.introductionContainer}>
-        <UserAvatar userName='John Doe' userImage='https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg'/>
+        <UserAvatar userName={userInfo.name} userImage={userInfo.avatarImage}/>
         <ScrollView style={{marginLeft: 10}}> 
-          <Text style={{fontSize: 20, color: "#5a5d81"}}>John Doe</Text>
-          <Text style={{marginTop: 5}}>"I'm an easy going foodie new in town. I love to eat Korean food. It's a pleasure eating."</Text> 
+          <Text style={{fontSize: 20, color: "#5a5d81"}}>{userInfo.name}</Text>
+          <Text style={{marginTop: 5}}>{userInfo.bio}</Text> 
         </ScrollView>
       </View>
 
@@ -35,7 +47,7 @@ export default function ProfileScreen(props) {
             style={{ marginRight: 15 }}
             color="#5a5d81"
           />
-          <Text style={{fontSize: 18}}>109 Reviews</Text>
+          <Text style={{fontSize: 18}}>{userInfo.reviews} Reviews</Text>
         </View>
         <View style={{
             alignItems: "center",
@@ -48,28 +60,28 @@ export default function ProfileScreen(props) {
             style={{ marginRight: 15 }}
             color="#5a5d81"
           />
-          <Text style={{fontSize: 18}}>5004 Likes</Text>
+          <Text style={{fontSize: 18}}>{userInfo.likes} Likes</Text>
         </View>
       </View>
 
-      <View style={{marginVertical: 10, marginHorizontal: 20, backgroundColor: "whitesmoke", elevation: 1, height: 1}} />
+      <View style={{marginBottom: 10, backgroundColor: "whitesmoke", elevation: 1, height: 0.5}} />
 
       {/* Interests Section */}
       <View style={styles.interestsContainer}>
         <View>
           <Text style={{fontSize:15, color: "#5a5d81"}}> I'm interested in...</Text>
         </View>
-        <View style={{padding: 10, flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
-          {interests.map(x => {
+        <View style={{paddingVertical: 10, flexDirection: "row", flexWrap: "wrap",}}>
+          {userInfo.interests.map((x, i) => {
             return (
               <Badge 
                 badgeStyle={{
                   backgroundColor: "white", 
-                  padding: 12, 
+                  padding: 14, 
                   margin: 3, 
-                  elevation: 3
+                  elevation: 1
                 }} 
-                key={x} 
+                key={i} 
                 value={<Text> {x} </Text>} 
               />
             ) 
@@ -77,10 +89,31 @@ export default function ProfileScreen(props) {
         </View>
       </View> 
 
-      <View style={{marginVertical: 10, marginHorizontal: 20, backgroundColor: "whitesmoke", elevation: 1, height: 1}} />
-
-      
-
+      {/* Basic Info Section */}
+      <View style={styles.basicInfoContainer}>
+        <View>
+          <Text style={{fontSize:15, color: "#5a5d81"}}> Basic Information </Text>
+        </View>
+        <View style={{paddingVertical: 6}}>
+          <ListItem
+            title={<Text>{userInfo.basicInfo.address} </Text>}
+            leftIcon={<Ionicons name='md-home' size={25} color="#5a5d81"/>}
+            containerStyle={{backgroundColor: "#fafafa", padding: 10}}
+            bottomDivider
+          />
+          <ListItem
+            title={<Text>{userInfo.basicInfo.city} </Text>}
+            leftIcon={<Ionicons name='md-business' size={25} color="#5a5d81"/>}
+            containerStyle={{backgroundColor: "#fafafa", padding: 10}}
+            bottomDivider
+          />
+          <ListItem
+            title={<Text>{userInfo.basicInfo.ethnicity} Background</Text>}
+            leftIcon={<Ionicons name='md-globe' size={25} color="#5a5d81"/>}
+            containerStyle={{backgroundColor: "#fafafa", padding: 10}}
+          />
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -97,15 +130,22 @@ const styles = StyleSheet.create({
   introductionContainer: {
     padding: 25,
     flexDirection: "row",
+    backgroundColor: "white",
   },
   likesAndReviewsContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    backgroundColor: "white",
+    paddingBottom: 10,
   },
   interestsContainer: {
     flexDirection: "column",
     paddingHorizontal: 20,
     paddingVertical: 10,
+  },
+  basicInfoContainer: {
+    flexDirection: "column",
+    paddingHorizontal: 20,
   }
 });
 
