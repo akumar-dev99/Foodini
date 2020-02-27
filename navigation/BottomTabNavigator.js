@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from '../components/StyledText';
 
+//Import Navigators
+import RestaurantNavigator from './RestaurantNavigator';
+
 // Import Screens
 import ProfileScreen from '../screens/ProfileScreen';
 import DishScreen from '../screens/DishScreen';
@@ -47,7 +50,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Restaurants"
-        component={RestaurantScreen}
+        component={RestaurantNavigator}
         options={{
           title: 'Restaurants',
           tabBarIcon: ({ focused }) => 
