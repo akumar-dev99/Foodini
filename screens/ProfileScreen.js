@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { StyleSheet, View, Text as RNText, ScrollView } from 'react-native';
+import { StyleSheet, View, Text as RNText, ScrollView, Button} from 'react-native';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 import { Badge, ListItem } from 'react-native-elements';
 
 // Import custom components for this profile screen
 import UserAvatar from '../components/ProfileScreen/UserAvatar';
+
+// import test function
+import easyCopy from '../utils/temp';
 
 const userInfo = {
   interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
@@ -114,6 +117,7 @@ export default function ProfileScreen(props) {
           />
         </View>
       </View>
+      <Button title="Hello" onPress={easyCopy}/>
     </ScrollView>
   );
 }
