@@ -1,4 +1,4 @@
-import firebase from './firebaseConfig';
+import firebase from '../firebaseConfig';
 var db = firebase.firestore(); // access to firestore (which is our database)
 
 var docRef = db.collection("users").doc("eOdeVsh2CLeQ8mwYTIVJwi8Lp2q1");

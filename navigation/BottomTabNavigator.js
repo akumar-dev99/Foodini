@@ -11,9 +11,8 @@ import RestaurantScreen from '../screens/RestaurantScreen';
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
 
-
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Dishes';
+const INITIAL_ROUTE_NAME = 'Profile';
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the

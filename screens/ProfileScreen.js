@@ -7,8 +7,8 @@ import { Badge, ListItem } from 'react-native-elements';
 // Import custom components for this profile screen
 import UserAvatar from '../components/ProfileScreen/UserAvatar';
 
-// import test function
-import easyCopy from '../utils/temp';
+// import temporary sign out function
+import { logout } from '../utils/auth';
 
 const userInfo = {
   interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
@@ -117,7 +117,7 @@ export default function ProfileScreen(props) {
           />
         </View>
       </View>
-      <Button title="Hello" onPress={easyCopy}/>
+      <Button color="grey" title="Logout" onPress={logout}/>
     </ScrollView>
   );
 }

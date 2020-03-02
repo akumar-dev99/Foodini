@@ -1,4 +1,24 @@
 import firebase from './firebaseConfig';
-const auth = firebase.auth(); // access to auth tools
+var auth = firebase.auth(); // access to auth tools
 
-// will fill out later...
+export function loginWithPassword(email, password) {
+    if(email && password) {
+        auth.signInWithEmailAndPassword(email, password).then(function(response) {
+            console.log("Logged in!");
+            console.log(response);
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            console.log(error);
+            // ...
+        });
+    }  
+}
+
+export function logout() {
+    auth.signOut().then(function() {
+        console.log("User Signed out");
+    }).catch(function(error) {
+        console.log(error)
+    });
+}
