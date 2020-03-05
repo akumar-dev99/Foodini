@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text as RNText, ScrollView, Button} from 'react-native';
+import { ActivityIndicator, StyleSheet, View, Text as RNText, ScrollView, Button} from 'react-native';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 import { Badge, ListItem } from 'react-native-elements';
@@ -10,6 +10,11 @@ import UserAvatar from '../components/ProfileScreen/UserAvatar';
 // import temporary sign out function
 import { logout } from '../utils/auth';
 
+// Import util functions using firebase
+import { retrieveUserData } from '../utils/ProfileScreen/retrieveUserData';
+import firebase from '../utils/firebaseConfig';
+var db = firebase.firestore();
+
 const userInfo = {
   interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
   basicInfo: {
@@ -19,21 +24,33 @@ const userInfo = {
   },
   likes: 5004,
   reviews: 109,
-  name: "Johnny Sins",
+  name: "Naman Pujari",
   bio: "I'm an easy going foodie new in town. I love to eat Korean food. It's a pleasure eating.",
   avatarImage: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"
 }
 
-export default function ProfileScreen(props) {
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} nestedScrollEnabled>
+export default function ProfileScreen({ navigation, route, user }) {
+  // data retrieval
+  const ref = db.collection('users').doc(user.uid);
+  const { isLoading, data } = useFirestoreDoc(ref);
 
+  if(isLoading) { console.log("Data is loading!") }
+  else { 
+    console.log(data) 
+  }
+
+  return (
+    <>
+    { isLoading && <Loading/>}
+    { data && 
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} nestedScrollEnabled>
       {/* Introduction Section */}
       <View style={styles.introductionContainer}>
-        <UserAvatar userName={userInfo.name} userImage={userInfo.avatarImage}/>
+        <UserAvatar userName={data.info.firstname} 
+          userImage={data.avatar}/>
         <ScrollView style={{marginLeft: 10}}> 
-          <Text style={{fontSize: 20, color: "#5a5d81"}}>{userInfo.name}</Text>
-          <Text style={{marginTop: 5}}>{userInfo.bio}</Text> 
+          <Text style={{fontSize: 20, color: "#5a5d81"}}>{data.info.firstname + " " + data.info.lastname}</Text>
+          <Text style={{marginTop: 5}}>{data.info.bio}</Text> 
         </ScrollView>
       </View>
 
@@ -50,7 +67,7 @@ export default function ProfileScreen(props) {
             style={{ marginRight: 15 }}
             color="#5a5d81"
           />
-          <Text style={{fontSize: 18}}>{userInfo.reviews} Reviews</Text>
+          <Text style={{fontSize: 18}}>{data.activity.reviews} Reviews</Text>
         </View>
         <View style={{
             alignItems: "center",
@@ -63,7 +80,7 @@ export default function ProfileScreen(props) {
             style={{ marginRight: 15 }}
             color="#5a5d81"
           />
-          <Text style={{fontSize: 18}}>{userInfo.likes} Likes</Text>
+          <Text style={{fontSize: 18}}>{data.activity.likes} Likes</Text>
         </View>
       </View>
 
@@ -75,7 +92,7 @@ export default function ProfileScreen(props) {
           <Text style={{fontSize:15, color: "#5a5d81"}}> I'm interested in...</Text>
         </View>
         <View style={{paddingVertical: 10, flexDirection: "row", flexWrap: "wrap",}}>
-          {userInfo.interests.map((x, i) => {
+          {data.preferences.cultures.map((x, i) => {
             return (
               <Badge 
                 badgeStyle={{
@@ -99,26 +116,27 @@ export default function ProfileScreen(props) {
         </View>
         <View style={{paddingVertical: 6}}>
           <ListItem
-            title={<Text>{userInfo.basicInfo.address} </Text>}
+            title={<Text>{data.info.location.street} </Text>}
             leftIcon={<Ionicons name='md-home' size={25} color="#5a5d81"/>}
             containerStyle={{backgroundColor: "#fafafa", padding: 10}}
             bottomDivider
           />
           <ListItem
-            title={<Text>{userInfo.basicInfo.city} </Text>}
+            title={<Text>{data.info.location.city} </Text>}
             leftIcon={<Ionicons name='md-business' size={25} color="#5a5d81"/>}
             containerStyle={{backgroundColor: "#fafafa", padding: 10}}
             bottomDivider
           />
           <ListItem
-            title={<Text>{userInfo.basicInfo.ethnicity} Background</Text>}
+            title={<Text>{data.info.ethnicity} Background</Text>}
             leftIcon={<Ionicons name='md-globe' size={25} color="#5a5d81"/>}
             containerStyle={{backgroundColor: "#fafafa", padding: 10}}
           />
         </View>
       </View>
       <Button color="grey" title="Logout" onPress={logout}/>
-    </ScrollView>
+    </ScrollView> }
+    </>
   );
 }
 
@@ -150,11 +168,44 @@ const styles = StyleSheet.create({
   basicInfoContainer: {
     flexDirection: "column",
     paddingHorizontal: 20,
-  }
+  },
 });
+
+function Loading() {
+  return (
+    <View style={{ 
+      flex: 1, 
+      flexDirection: "column",
+      alignItems: "center", 
+      justifyContent: "center", 
+    }}>
+      <ActivityIndicator style={styles.activityIndicator} size={50} color="#000000" />
+      <Text style={{
+        marginTop: 15,
+        fontSize: 13, 
+        color: "grey" 
+      }}> Please wait while we get your data </Text>
+    </View>
+  )
+}
+
+const useFirestoreDoc = (ref) => {
+  const [docState, setDocState] = React.useState({ isLoading: true, data: null });
+  React.useEffect(() => {
+    return ref.onSnapshot(doc => {
+      setDocState({ isLoading: false, data: doc.data() });
+    })
+  }, []);
+  return docState;
+}
 
 ProfileScreen.navigationOptions = {
   header: null,
 };
 
 
+
+  // retrieveUserData(userToken).then(function(returnDoc) {
+  //   if(returnDoc.exists) { setProfileContent(returnDoc.data());  }
+  //   else { console.log("Doc does not exist!"); }
+  // }).catch(function(error) { console.log("Error getting profile: ", error)});

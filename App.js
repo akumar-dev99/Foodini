@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, YellowBox } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,12 +13,17 @@ import useLinking from './navigation/useLinking';
 // for sign in observer
 import firebase from './utils/firebaseConfig';
 
+YellowBox.ignoreWarnings(['Setting a timer']);
+
+var auth = firebase.auth();
 const Stack = createStackNavigator();
 
 export default function App(props) {
+  // States for loading
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const [userToken, setUserToken] = React.useState(null);
+  const [authState, setState] = React.useState(null);
+
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -42,33 +47,27 @@ export default function App(props) {
       } finally {
         setLoadingComplete(true);
         SplashScreen.hide();
+        auth.onAuthStateChanged(userDetails => {
+          setState(userDetails)
+        });
       }
     }
     loadResourcesAndDataAsync();
-  }, []);
+  }, [auth]);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        setUserToken(user.uid);
-      } else {
-        setUserToken(null);
-      }
-    });
 
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
-            {userToken ? (
-              <Stack.Screen 
-                name="Root" 
-                component={BottomTabNavigator} 
-              />
+            {authState ? (
+              <Stack.Screen name="Root">
+                {(props) => <BottomTabNavigator {...props} user={authState}/>} 
+              </Stack.Screen>
             ) : (
               <Stack.Screen 
                 name="Login" 

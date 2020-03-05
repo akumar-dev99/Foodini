@@ -14,11 +14,14 @@ import TabBarIcon from '../components/TabBarIcon';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Profile';
 
-export default function BottomTabNavigator({ navigation, route }) {
+export default function BottomTabNavigator({navigation, route, user}) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+
+  // We want to pass down the uid to each of the screens below.
+  // This will help us determine the data we show on each screen.
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}
@@ -28,13 +31,14 @@ export default function BottomTabNavigator({ navigation, route }) {
     >
       <BottomTab.Screen
         name="Profile"
-        component={ProfileScreen}
         options={{
           title: 'Profile',
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="ios-person" />,
         }}
-      />
+      > 
+        {(props) => <ProfileScreen {...props} user={user} />  }
+      </BottomTab.Screen>
       <BottomTab.Screen
         name="Dishes"
         component={DishScreen}
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
 
 function getHeaderTitle(route) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
+  
   switch (routeName) {
     case 'Profile':
       return <Text> Profile </Text>
@@ -75,3 +79,17 @@ function getHeaderTitle(route) {
       return <Text> Find your platter </Text>;
   }
 }
+
+// return {
+//   interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
+//   basicInfo: {
+//     address: "39-02 Primary Avenue",
+//     city: "Cape Town",
+//     ethnicity: "Asian"
+//   },
+//   likes: 5004,
+//   reviews: 109,
+//   name: "Johnny Sins",
+//   bio: "I'm an easy going foodie new in town. I love to eat Korean food. It's a pleasure eating.",
+//   avatarImage: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"
+// }

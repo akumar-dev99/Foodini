@@ -5,7 +5,6 @@ export function loginWithPassword(email, password) {
     if(email && password) {
         auth.signInWithEmailAndPassword(email, password).then(function(response) {
             console.log("Logged in!");
-            console.log(response);
         })
         .catch(function(error) {
             // Handle Errors here.
