@@ -4,8 +4,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from '../components/StyledText';
 
 export default function DishScreen() {
+  console.log("Dish Screen has mounted!");
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      
       <Text style={{fontSize: 20}}> DishScreen</Text>
     </ScrollView>
   );

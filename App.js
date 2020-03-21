@@ -7,7 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
+
 import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import DetailsScreen from './screens/DetailsScreen';
+
+
 import useLinking from './navigation/useLinking';
 
 // for sign in observer
@@ -47,9 +52,11 @@ export default function App(props) {
       } finally {
         setLoadingComplete(true);
         SplashScreen.hide();
-        auth.onAuthStateChanged(userDetails => {
+        const unsubscribe = auth.onAuthStateChanged(userDetails => {
+          console.log(userDetails);
           setState(userDetails)
         });
+        return unsubscribe;
       }
     }
     loadResourcesAndDataAsync();
@@ -64,18 +71,34 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
-            {authState ? (
+            {(authState) ? (
               <Stack.Screen name="Root">
                 {(props) => <BottomTabNavigator {...props} user={authState}/>} 
               </Stack.Screen>
             ) : (
-              <Stack.Screen 
-                name="Login" 
-                component={LoginScreen} 
-                options={{
-                  headerShown: false,
-                }}
-              />
+              <>
+                <Stack.Screen 
+                  name="Login" 
+                  component={LoginScreen} 
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="Signup" 
+                  component={SignupScreen} 
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="Details" 
+                  component={DetailsScreen} 
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </>
             )}
           </Stack.Navigator>
         </NavigationContainer>

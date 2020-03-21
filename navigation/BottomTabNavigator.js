@@ -36,27 +36,29 @@ export default function BottomTabNavigator({navigation, route, user}) {
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="ios-person" />,
         }}
-      > 
-        {(props) => <ProfileScreen {...props} user={user} />  }
+      >
+        {(props) => <ProfileScreen {...props} user={user}/>}
       </BottomTab.Screen>
       <BottomTab.Screen
         name="Dishes"
-        component={DishScreen}
         options={{
           title: 'Dishes',
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="md-pizza" />,
         }}
-      />
+      >
+        {(props) => <DishScreen {...props} user={user}/>}
+      </BottomTab.Screen>
       <BottomTab.Screen
         name="Restaurants"
-        component={RestaurantScreen}
         options={{
           title: 'Restaurants',
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="md-restaurant" />,
         }}
-      />
+      >
+        {(props) => <RestaurantScreen {...props} user={user}/>}
+      </BottomTab.Screen>
     </BottomTab.Navigator>
   );
 }
@@ -79,17 +81,3 @@ function getHeaderTitle(route) {
       return <Text> Find your platter </Text>;
   }
 }
-
-// return {
-//   interests: ["Japanese", "Korean", "Indian", "African", "Chinese", "Spanish", "Mexican"],
-//   basicInfo: {
-//     address: "39-02 Primary Avenue",
-//     city: "Cape Town",
-//     ethnicity: "Asian"
-//   },
-//   likes: 5004,
-//   reviews: 109,
-//   name: "Johnny Sins",
-//   bio: "I'm an easy going foodie new in town. I love to eat Korean food. It's a pleasure eating.",
-//   avatarImage: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"
-// }
