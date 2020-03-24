@@ -121,15 +121,6 @@ export default function DetailsScreen({ navigation, route }) {
         const [restrictionSelection, setRestrictionSelection] = React.useState("");
         return (
             <>
-                <TouchableOpacity onPress={() => {
-                    setFormStatus(0);    
-                }} style={{marginBottom: 5}}> 
-                    <Ionicons
-                        size={30}
-                        name="ios-arrow-round-back"
-                        color="#5a5d81"
-                    />
-                </TouchableOpacity>
                 <Text style={{ fontSize: 22, color: "#222222", }}> 
                     How about any dietary restrictions?
                 </Text>
@@ -220,8 +211,32 @@ export default function DetailsScreen({ navigation, route }) {
                 }
             </>
         )
+    }
 
-
+    const FormHeader = () => {
+        return (
+            <View style={{marginBottom: 10, flexDirection: "row", flexWrap: "nowrap",}}> 
+                <TouchableOpacity onPress={() => {
+                    setFormStatus(0);    
+                }}> 
+                    <Ionicons
+                        size={30}
+                        name="ios-arrow-round-back"
+                        color={formStatus == 1 ? "#5a5d81" : "#f1f1f1"}
+                    />
+                </TouchableOpacity>
+                <View style={{flexDirection: "row", flex: 1, flexWrap: "nowrap", justifyContent: "center",}}>
+                    <View style={{justifyContent: "center", marginHorizontal: 10,}}>
+                        <Text style={{fontSize: 12, fontWeight: (formStatus == 0) ? "bold" : "normal", 
+                            color: (formStatus == 0) ? "black" : "grey" }}> Allergies </Text>
+                    </View>
+                    <View style={{justifyContent: "center", marginHorizontal: 10}}>
+                        <Text style={{fontSize: 12, fontWeight: (formStatus == 0) ? "normal" : "bold", 
+                            color: (formStatus == 0) ? "grey" : "black" }}> Dietary Restrictions </Text>
+                    </View>
+                </View>
+            </View>
+        )
     }
 
     return (
@@ -233,9 +248,9 @@ export default function DetailsScreen({ navigation, route }) {
                     </Text>
                 </View>
                 <View style={{ padding: 15, flex: 1, justifyContent: "center", }}>
+                    <FormHeader/>
                     { (formStatus == 0) && <AllergyForm/> }
                     { (formStatus == 1) && <RestrictionForm/> }
-                    
                 </View>
             </KeyboardAvoidingView>
     );
