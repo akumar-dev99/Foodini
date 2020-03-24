@@ -51,7 +51,7 @@ export default function SignupScreen({ navigation, route }) {
             </View>
             <View style={{...styles.input, width: "65%",}}>
                 <TextInput
-                    editable={password != ""}
+                    editable={password != "" && password.length >= 6}
                     placeholder='Confirm Password'
                     onChangeText={(text) => setConfPassword(text)}
                     value={confPassword}
@@ -91,6 +91,14 @@ export default function SignupScreen({ navigation, route }) {
             </View>
 
             {
+              ((password != "") && (password.length < 6)) &&
+              <Text style={{textAlign: "center", color: "red", marginTop: 15,}}>
+                Passwords must be at least 6 alphanumeric characters
+              </Text>
+            }
+
+
+            {
               ((confPassword != "") && (confPassword != password))  &&
               <Text style={{color: "red", marginTop: 15,}}>
                 Passwords must match!
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     input: {
-      elevation: 1, backgroundColor: "#ebebeb", 
+      elevation: 1, backgroundColor: "#e0e0e0", 
       borderRadius: 10, marginTop: 10,
       padding: 10,
     }

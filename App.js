@@ -95,7 +95,7 @@ export default function App(props) {
                   name="Details" 
                   component={DetailsScreen} 
                   options={{
-                    headerShown: false,
+                    headerShown: true,
                   }}
                 />
               </>

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   input: {
-    elevation: 1, backgroundColor: "#ebebeb", 
+    elevation: 1, backgroundColor: "#e0e0e0", 
     borderRadius: 10, width: "65%", marginTop: 10,
     padding: 10,
   }
