@@ -4,6 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from '../components/StyledText';
 
 export default function RestaurantScreen() {
+  console.log("Restaurant Screen has mounted!")
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <Text style={{fontSize: 20}}> RestaurantScreen</Text>
