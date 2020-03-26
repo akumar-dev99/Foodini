@@ -5,6 +5,8 @@ import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 import { Badge } from 'react-native-elements';
 
+import { createNewUserDoc } from '../utils/db';
+
 export default function DetailsScreen({ navigation, route }) {
     // helps us render items in the forms in perfect order  
     const [formStatus, setFormStatus] = React.useState(0); 
@@ -13,6 +15,9 @@ export default function DetailsScreen({ navigation, route }) {
 
 
     const first = route.params.firstName;
+    const last = route.params.lastName;
+    const uid = route.params.uid;
+    console.log(uid)
     navigation.setOptions({
         headerTitle: () => <Text style={{fontSize: 30}}>Hi, {first}!</Text>, 
         headerLeft: null
@@ -135,6 +140,7 @@ export default function DetailsScreen({ navigation, route }) {
                     <View style={{flex: 1}}/>
                     <TouchableOpacity onPress={() => { 
                             setRestriction(false);
+                            setFormStatus(2);
                         }} style={(!restriction && restriction != null) ? styles.buttonSelected : styles.button}>
                         <Text style={{fontSize: 15, textAlign: "center", }}> No </Text>
                     </TouchableOpacity>
@@ -149,7 +155,7 @@ export default function DetailsScreen({ navigation, route }) {
                         <View style={{flexDirection: "row", flexWrap: "nowrap", marginTop: 10,}}>
                             <View style={{...styles.input, flex: 5,}}>
                                 <TextInput
-                                    placeholder='Peanuts'
+                                    placeholder='Halal'
                                     onChangeText={(text) => setRestrictionSelection(text)}
                                     value={restrictionSelection}
                                 />
@@ -200,8 +206,7 @@ export default function DetailsScreen({ navigation, route }) {
                             <TouchableOpacity style={{...styles.button, flex: 0, marginHorizontal: 0, marginTop: 0, 
                                     width: "50%", alignSelf: "center",}}
                                     onPress={() => {
-                                        console.log(restrictionList);
-                                        console.log(allergyList);
+                                        setFormStatus(2);
                                     }}
                             >
                                 <Text style={{textAlign: "center",}}> Submit </Text>
@@ -232,7 +237,7 @@ export default function DetailsScreen({ navigation, route }) {
                     </View>
                     <View style={{justifyContent: "center", marginHorizontal: 10}}>
                         <Text style={{fontSize: 12, fontWeight: (formStatus == 0) ? "normal" : "bold", 
-                            color: (formStatus == 0) ? "grey" : "black" }}> Dietary Restrictions </Text>
+                            color: (formStatus == 1) ? "black" : "grey" }}> Dietary Restrictions </Text>
                     </View>
                 </View>
             </View>
@@ -248,9 +253,30 @@ export default function DetailsScreen({ navigation, route }) {
                     </Text>
                 </View>
                 <View style={{ padding: 15, flex: 1, justifyContent: "center", }}>
-                    <FormHeader/>
+                    { (formStatus != 2) && <FormHeader/> }
                     { (formStatus == 0) && <AllergyForm/> }
                     { (formStatus == 1) && <RestrictionForm/> }
+                    { 
+                        (formStatus == 2) && 
+                        <>
+                            <Text style={{ fontSize: 22, color: "#222222", }}> 
+                                You're all set. Welcome to Foodini!
+                            </Text>
+                            <View style={{flexDirection: "row", flexWrap: "nowrap", flex: 0, justifyContent: "center"}}>
+                            <TouchableOpacity style={{...styles.button, flex: 0, marginTop: 10, paddingHorizontal: 20}}
+                                onPress={() => {
+                                    createNewUserDoc(uid, first, last, allergyList, restrictionList)
+                                    .then((response) => {
+                                        navigation.navigate("Login");
+                                    })
+                                    .catch((error) => { console.log(error) });
+                                }}
+                            >
+                                <Text> Login </Text>
+                            </TouchableOpacity>
+                            </View>
+                        </>
+                    }
                 </View>
             </KeyboardAvoidingView>
     );

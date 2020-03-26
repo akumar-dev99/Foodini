@@ -1,4 +1,6 @@
 import firebase from './firebaseConfig';
+import axios from 'axios';
+
 var auth = firebase.auth(); // access to auth tools
 
 export function loginWithPassword(email, password) {
@@ -10,8 +12,15 @@ export function logout() {
     .catch(() => console.log(error.message));
 }
 
-export function createAccountWithPassword(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password);
+export function createAccountWithPasswordAdmin(email, password) {
+    return axios({
+        method: "POST",
+        url: "https://us-central1-foodini-app-177fc.cloudfunctions.net/addUser",
+        data: JSON.stringify({ email: email, password: password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
 }
 
 export function checkEmailExists(email) {

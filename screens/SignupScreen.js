@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View, Text as RNText, Button, TextInput } from 'react-native';
 import { Text } from '../components/StyledText';
 
-import { createAccountWithPassword, checkEmailExists } from '../utils/auth';
+import { createAccountWithPasswordAdmin, checkEmailExists } from '../utils/auth';
 
 
 export default function SignupScreen({ navigation, route }) {
@@ -68,14 +68,16 @@ export default function SignupScreen({ navigation, route }) {
                     onPress={() => {
                       checkEmailExists(email)
                       .then((response) => {
-                          console.log(response);
-                          if(response.length == 0) {
+                        if(response.length == 0) {
+                          createAccountWithPasswordAdmin(email, password)
+                          .then((createdUser) => {
                             navigation.navigate("Details", {
-                            firstName: first,
-                            lastName: last,
-                            userEmail: email,
-                            userPassword: password,
+                              uid: createdUser.data.uid,
+                              firstName: first,
+                              lastName: last,
+                            });
                           })
+                          .catch(() => { setErrMsg("Account creation failed!") });
                         } else { setErrMsg("Email is already in use. Please try again!"); }
                       })
                       .catch((error) => setErrMsg(error.message));

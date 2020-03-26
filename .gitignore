@@ -9,6 +9,15 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+functions/
+
+# firebase files
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+foodini-app-177fc-firebase-adminsdk-4h7tp-63a8a7bd41.json
+storage.rules
 
 # macOS
 .DS_Store
