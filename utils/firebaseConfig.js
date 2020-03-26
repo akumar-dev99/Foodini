@@ -1,5 +1,8 @@
-import firebase from 'firebase';
-import '@firebase/firestore';
+var firebase = require("firebase/app");
+
+require("firebase/auth");
+require("firebase/firestore");
+require("firebase/functions");
 
 // Initialize Firebase
 var firebaseConfig = {
