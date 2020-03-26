@@ -7,6 +7,8 @@ import { Text } from '../components/StyledText';
 import ProfileScreen from '../screens/ProfileScreen';
 import DishScreen from '../screens/DishScreen';
 import RestaurantScreen from '../screens/RestaurantScreen';
+import PostScreen from '../screens/PostScreen';
+import SocialScreen from '../screens/SocialScreen';
 
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
@@ -30,16 +32,6 @@ export default function BottomTabNavigator({navigation, route, user}) {
       }}
     >
       <BottomTab.Screen
-        name="Profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ focused }) => 
-            <TabBarIcon focused={focused} name="ios-person" />,
-        }}
-      >
-        {(props) => <ProfileScreen {...props} user={user}/>}
-      </BottomTab.Screen>
-      <BottomTab.Screen
         name="Dishes"
         options={{
           title: 'Dishes',
@@ -58,6 +50,38 @@ export default function BottomTabNavigator({navigation, route, user}) {
         }}
       >
         {(props) => <RestaurantScreen {...props} user={user}/>}
+      </BottomTab.Screen>
+
+      <BottomTab.Screen
+        name="Add Post"
+        options={{
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon post focused={focused} name="ios-add-circle-outline" />,
+          tabBarLabel: () => { return }
+        }}
+      >
+        {(props) => <PostScreen {...props} user={user}/>}
+      </BottomTab.Screen>
+
+      <BottomTab.Screen
+        name="Social"
+        options={{
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon focused={focused} name="md-heart" />,
+        }}
+      >
+        {(props) => <SocialScreen {...props} user={user}/>}
+      </BottomTab.Screen>
+
+      <BottomTab.Screen
+        name="Profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => 
+            <TabBarIcon focused={focused} name="md-person" />,
+        }}
+      >
+        {(props) => <ProfileScreen {...props} user={user}/>} 
       </BottomTab.Screen>
     </BottomTab.Navigator>
   );
@@ -78,6 +102,10 @@ function getHeaderTitle(route) {
     case 'Dishes':
       return <Text> Explore your tastes </Text>
     case 'Restaurants':
-      return <Text> Find your platter </Text>;
+      return <Text> Find your platter </Text>
+    case 'Social':
+      return <Text> Activity Feed </Text>
+    case 'Add Post':
+      return <Text> New Post </Text>
   }
 }
