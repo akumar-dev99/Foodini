@@ -17,6 +17,9 @@ import useLinking from './navigation/useLinking';
 
 // for sign in observer
 import firebase from './utils/firebaseConfig';
+import {decode, encode} from 'base-64'
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 
