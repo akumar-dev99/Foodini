@@ -51,7 +51,7 @@ export default class DishDetailScreen extends Component{
               <DishInfo
               
               dish="Samosa"
-              info="jsfbsl fjbf sljfbdfljsbfljsbf sljfbsjhbsdlfjbshbfsdljfbsdljfbsjhbsfbsfsbdlfsdfjnsf"
+              info="jsfbs SAMOSA IS AN INDIAN SNACCK LMAOOOOfljsbfljsbf sljfbsjhbsdlfjbshbfsdljfbsdljfbsjhbsfbsfsbdlfsdfjnsf"
               country="Indian"
               price="3-5"
            
