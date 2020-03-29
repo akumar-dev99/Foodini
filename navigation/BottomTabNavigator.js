@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from '../components/StyledText';
+import { Ionicons } from '@expo/vector-icons';
 
 // Import Screens
 import ProfileScreen from '../screens/ProfileScreen';
@@ -13,6 +14,8 @@ import SocialScreen from '../screens/SocialScreen';
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
 
+import { logout } from '../utils/auth';
+
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Profile';
 
@@ -20,7 +23,21 @@ export default function BottomTabNavigator({navigation, route, user}) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions({ 
+    headerTitle: getHeaderTitle(route),
+    headerRight: () => {
+      return (
+        <TouchableOpacity style={{marginRight: 15, padding: 5,}} 
+            onPress={logout}>
+          <Ionicons
+            name='md-log-out'
+            color="black"
+            size={25}
+          />
+        </TouchableOpacity>
+      )
+    }
+  });
 
   // We want to pass down the uid to each of the screens below.
   // This will help us determine the data we show on each screen.
