@@ -12,6 +12,11 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
+import DishDetailScreen from './screens/DishDetailScreen';
+import MoreImage from './components/DishDetailScreen/MoreImage';
+import Tastelike from './components/DishDetailScreen/Tastelike';
+import Review from './components/DishDetailScreen/Review';
+
 
 import useLinking from './navigation/useLinking';
 
@@ -103,6 +108,10 @@ export default function App(props) {
                 />
               </>
             )}
+            <Stack.Screen name="DishDetails" component={DishDetailScreen} />
+            <Stack.Screen name="MoreImage" component={MoreImage} />
+            <Stack.Screen name="Tastelike" component={Tastelike} />
+            <Stack.Screen name="Review" component={Review} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
