@@ -73,37 +73,33 @@ export default function App(props) {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            {(authState) ? (
-              <Stack.Screen name="Root">
-                {(props) => <BottomTabNavigator {...props} user={authState}/>} 
-              </Stack.Screen>
-            ) : (
-              <>
-                <Stack.Screen 
-                  name="Login" 
-                  component={LoginScreen} 
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen 
-                  name="Signup" 
-                  component={SignupScreen} 
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen 
-                  name="Details" 
-                  component={DetailsScreen} 
-                  options={{
-                    headerShown: true,
-                  }}
-                />
-              </>
-            )}
-          </Stack.Navigator>
+          {(authState) ? (
+            <BottomTabNavigator user={authState}/> 
+          ) : (
+            <Stack.Navigator>
+              <Stack.Screen 
+                name="Login" 
+                component={LoginScreen} 
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen 
+                name="Signup" 
+                component={SignupScreen} 
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen 
+                name="Details" 
+                component={DetailsScreen} 
+                options={{
+                  headerShown: true,
+                }}
+              />
+            </Stack.Navigator>
+          )}
         </NavigationContainer>
       </View>
     );

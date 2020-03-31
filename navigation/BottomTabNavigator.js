@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,8 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 import ProfileScreen from '../screens/ProfileScreen';
 import DishScreen from '../screens/DishScreen';
 import RestaurantScreen from '../screens/RestaurantScreen';
-import PostScreen from '../screens/PostScreen';
 import SocialScreen from '../screens/SocialScreen';
+
+import PostStackNavigator from './PostStackNavigator';
 
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
@@ -19,29 +20,13 @@ import { logout } from '../utils/auth';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Profile';
 
-export default function BottomTabNavigator({navigation, route, user}) {
+export default function BottomTabNavigator({user}) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ 
-    headerTitle: getHeaderTitle(route),
-    headerRight: () => {
-      return (
-        <TouchableOpacity style={{marginRight: 15, padding: 5,}} 
-            onPress={logout}>
-          <Ionicons
-            name='md-log-out'
-            color="black"
-            size={25}
-          />
-        </TouchableOpacity>
-      )
-    }
-  });
 
   // We want to pass down the uid to each of the screens below.
   // This will help us determine the data we show on each screen.
-
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{ 
@@ -77,7 +62,7 @@ export default function BottomTabNavigator({navigation, route, user}) {
           tabBarLabel: () => { return }
         }}
       >
-        {(props) => <PostScreen {...props} user={user}/>}
+        {(props) => <PostStackNavigator {...props} user={user}/>}
       </BottomTab.Screen>
 
       <BottomTab.Screen
@@ -109,20 +94,3 @@ const styles = StyleSheet.create({
     fontFamily: "rubik",
   }
 })
-
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-  
-  switch (routeName) {
-    case 'Profile':
-      return <Text> Profile </Text>
-    case 'Dishes':
-      return <Text> Explore your tastes </Text>
-    case 'Restaurants':
-      return <Text> Find your platter </Text>
-    case 'Social':
-      return <Text> Activity Feed </Text>
-    case 'Add Post':
-      return <Text> New Post </Text>
-  }
-}

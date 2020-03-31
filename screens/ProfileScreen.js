@@ -9,10 +9,10 @@ import UserAvatar from '../components/ProfileScreen/UserAvatar';
 
 // Link screen to firebase functionality
 import { useFirestoreDoc } from '../utils/db';
+import { logout } from '../utils/auth';
 
 export default function ProfileScreen({ navigation, route, user }) {
 
-  console.log("Profile Screen has mounted!")
 
   // data retrieval
   const { isLoading, data } = useFirestoreDoc('users', user.uid);
@@ -129,6 +129,7 @@ export default function ProfileScreen({ navigation, route, user }) {
               </View>
             </View>
         </View>
+        <Button title="logout" onPress={() => { logout() }}/>
         </ScrollView> 
       </SafeAreaView>
       }
