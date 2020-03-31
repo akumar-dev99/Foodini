@@ -3,6 +3,8 @@ import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
+//Import Navigators
+import RestaurantNavigator from './RestaurantNavigator';
 
 // Import Screens
 import ProfileScreen from '../screens/ProfileScreen';
@@ -24,10 +26,10 @@ export default function BottomTabNavigator({user}) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-
-  // We want to pass down the uid to each of the screens below.
-  // This will help us determine the data we show on each screen.
-  return (
+    
+    // We want to pass down the uid to each of the screens below.
+    // This will help us determine the data we show on each screen.
+    return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{ 
         labelStyle: styles.tabLabel,
@@ -51,7 +53,7 @@ export default function BottomTabNavigator({user}) {
             <TabBarIcon focused={focused} name="md-restaurant" />,
         }}
       >
-        {(props) => <RestaurantScreen {...props} user={user}/>}
+        {(props) => <RestaurantNavigator {...props} user={user}/>}
       </BottomTab.Screen>
 
       <BottomTab.Screen
