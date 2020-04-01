@@ -26,7 +26,7 @@ export default function ProfileScreen({ navigation, route, user }) {
       <SafeAreaView style={styles.container} >
         <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
 
-          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", borderColor: "#fefefe", borderWidth: 1, elevation: 5,}}>
+          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", elevation: 5,}}>
           {/* Introduction Section */}
           <View style={styles.introductionContainer}>
               <View style={{marginRight: 10,}}>
@@ -129,7 +129,6 @@ export default function ProfileScreen({ navigation, route, user }) {
               </View>
             </View>
         </View>
-        <Button title="logout" onPress={() => { logout() }}/>
         </ScrollView> 
       </SafeAreaView>
       }

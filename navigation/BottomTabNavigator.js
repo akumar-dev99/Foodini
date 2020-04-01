@@ -11,6 +11,7 @@ import RestaurantScreen from '../screens/RestaurantScreen';
 import SocialScreen from '../screens/SocialScreen';
 
 import PostStackNavigator from './PostStackNavigator';
+import ProfileStackNavigator from './ProfileStackNavigator';
 
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
@@ -83,7 +84,7 @@ export default function BottomTabNavigator({user}) {
             <TabBarIcon focused={focused} name="md-person" />,
         }}
       >
-        {(props) => <ProfileScreen {...props} user={user}/>} 
+        {(props) => <ProfileStackNavigator {...props} user={user}/>} 
       </BottomTab.Screen>
     </BottomTab.Navigator>
   );
