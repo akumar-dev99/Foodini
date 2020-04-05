@@ -7,8 +7,6 @@ import { StyleSheet, View, Text as RNText, ScrollView,
 import { Text } from '../components/StyledText';
 import { Badge, Slider, AirbnbRating, CheckBox } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
-import { logout } from '../utils/auth';
-
 
 export default function PostFormScreen({navigation, route, user}) {
     // for part 1
@@ -19,11 +17,12 @@ export default function PostFormScreen({navigation, route, user}) {
     const [restaurant, setRestaurant] = React.useState("");
     const [restaurantReview, setRestaurantReview] = React.useState("");
     const [rating, setRating] = React.useState(null);
-    const [share, setShare] = React.useState(false);
 
     const [keywordList, setKeywordList] = React.useState([]);
     const [taste, setTaste] = React.useState([]);
 
+    console.log(route.params.data.height);
+    console.log(route.params.data.width);
 
     const [formStatus, setFormStatus] = React.useState(0);
 
