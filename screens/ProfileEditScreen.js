@@ -7,10 +7,14 @@ import { Text } from '../components/StyledText';
 // import firestore document update function
 import { UpdateDocTracker } from '../utils/db';
 
+// get useSession to obtain user
+import { useSession } from '../utils/auth';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default function ProfileEditScreen({navigation, route, user}) {
+export default function ProfileEditScreen({ navigation, route, }) {
+  const user = useSession();
   /*
   Sections in Profile Screen
   1. Name EDITABLE
@@ -30,12 +34,12 @@ export default function ProfileEditScreen({navigation, route, user}) {
         <View style={{flexDirection: "row", flexWrap: "nowrap", justifyContent: "space-between"}}>
           <View style={{ flex: 0.87, flexDirection: "row", flexWrap: "nowrap", justifyContent: "space-between"}}>
             <View style={{ flex: 0.48, }}> 
-              <Text style={{ fontSize: 12, fontWeight: "bold", }}>
+              <Text style={{ fontSize: 12, }}>
                 First
               </Text>
             </View>
             <View style={{ flex: 0.48,}}> 
-              <Text style={{ fontSize: 12, fontWeight: "bold", }}>
+              <Text style={{ fontSize: 12, }}>
                 Last
               </Text>
             </View>
@@ -83,7 +87,7 @@ export default function ProfileEditScreen({navigation, route, user}) {
         <View style={{flexDirection: "row", flexWrap: "nowrap", justifyContent: "space-between"}}>
           <View style={{ flex: 0.87, }}>
             <View style={{ flexDirection: "row", flexWrap: "nowrap", justifyContent: "space-between"}}>
-              <Text style={{ fontSize: 12, fontWeight: "bold", }}>
+              <Text style={{ fontSize: 12, }}>
                 Bio
               </Text>
               <Text style={{color: "black", fontSize: 10, alignSelf: "flex-end", }}>
