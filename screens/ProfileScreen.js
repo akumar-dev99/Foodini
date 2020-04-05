@@ -9,16 +9,45 @@ import { Badge, ListItem, SearchBar } from 'react-native-elements';
 import UserAvatar from '../components/ProfileScreen/UserAvatar';
 
 // Link screen to firebase functionality
+import { useSession } from '../utils/auth';
 import { useFirestoreDoc } from '../utils/db';
 import { logout } from '../utils/auth';
 
-export default function ProfileScreen({ navigation, route, user }) {
+export default function ProfileScreen({ navigation, route, }) {
+  navigation.setOptions({
+    headerRight: () => {
+        return (
+            <View style={{flexDirection: "row", flexWrap: "nowrap", marginRight: 5,}}>
+                <TouchableOpacity style={{ padding: 10}}
+                    onPress={() => { 
+                      navigation.navigate("Edit Profile"); 
+                    }}    
+                >
+                    <Ionicons
+                        name="ios-build"
+                        size={30}
+                        color="#333"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10}} 
+                    onPress={logout}
+                >
+                    <Ionicons
+                        name="ios-log-out"
+                        size={30}
+                        color="#333"
+                    />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+  })
 
   // data retrieval
+  const user = useSession();
   const { isLoading, data } = useFirestoreDoc('users', user.uid);
   // retrive the data for the user, using the firestore doc function. First parameter is collection name
   // while the second is the name of the document to query.
-  
   return (
     <React.Fragment>
       { isLoading && <Loading/>}
