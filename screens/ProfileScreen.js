@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { ActivityIndicator, StyleSheet, View, TouchableOpacity, Text as RNText, ScrollView, Button, SafeAreaView} from 'react-native';
+import { ActivityIndicator, StyleSheet, View, TouchableOpacity, 
+  Text as RNText, ScrollView, Button, SafeAreaView } from 'react-native';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 import { Badge, ListItem, SearchBar } from 'react-native-elements';
@@ -13,20 +14,19 @@ import { logout } from '../utils/auth';
 
 export default function ProfileScreen({ navigation, route, user }) {
 
-
   // data retrieval
   const { isLoading, data } = useFirestoreDoc('users', user.uid);
   // retrive the data for the user, using the firestore doc function. First parameter is collection name
   // while the second is the name of the document to query.
   
   return (
-    <>
+    <React.Fragment>
       { isLoading && <Loading/>}
       { !isLoading && 
       <SafeAreaView style={styles.container} >
         <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
 
-          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", borderColor: "#fefefe", borderWidth: 1, elevation: 5,}}>
+          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", elevation: 5,}}>
           {/* Introduction Section */}
           <View style={styles.introductionContainer}>
               <View style={{marginRight: 10,}}>
@@ -37,7 +37,7 @@ export default function ProfileScreen({ navigation, route, user }) {
                 <Text style={{fontSize: 22,}}>{data.info.firstname + " " + data.info.lastname}</Text>
                 <ScrollView style={{marginTop: 5, }}> 
                   <Text style={{color: "#5a5d81", textAlign: "left",}}>
-                    {data.info.bio} {data.info.bio} {data.info.bio}
+                    {data.info.bio}
                     </Text> 
                 </ScrollView>
               </View>
@@ -129,11 +129,10 @@ export default function ProfileScreen({ navigation, route, user }) {
               </View>
             </View>
         </View>
-        <Button title="logout" onPress={() => { logout() }}/>
         </ScrollView> 
       </SafeAreaView>
       }
-    </>
+    </React.Fragment>
   );
 }
 
