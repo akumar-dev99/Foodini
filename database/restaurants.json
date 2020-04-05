@@ -1,0 +1,74 @@
+[
+    {
+	ID: "0",
+	name: "Red Mountain Noodle House",
+	rating: 4.7,
+	description: "Serving traditional Lanzhou hand pulled noodles",
+	cuisine: [
+	    "Chinese",
+	    "Lanzhou"
+	],
+	images: [
+	    "link0",
+	    "link1",
+	    "link2"
+	],
+	info: {
+	    address: {
+		city: "Flushing",
+		state: "NY",
+		street: "44-13 Kissena Blvd",
+		zip: "11355"
+	    },
+	    contact: {
+		email: "",
+		phone: "(718) 886-3222",
+		website: "https://www.redmountainnoodle.com/"
+	    },
+	    hours: {
+		monday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		tuesday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		wednesday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		thursday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		friday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		saturday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		},
+		sunday: {
+		    open: "11:00 AM",
+		    close: "11:00 PM"
+		}
+	    }
+	},
+	menu: [
+	    {
+		ID: "0",
+		IDinDishes: "0",
+		name: "Hand-Pull Noodle w. House Special Soup",
+		posts: [
+		    "0",
+		    "1"
+		],
+		price: 7.5
+	    }
+	]
+    }
+]
+		
+		

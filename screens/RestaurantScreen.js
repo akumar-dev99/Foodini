@@ -18,11 +18,11 @@ export default function RestaurantScreen({ navigation, route }) {
 	    
 	    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 	    <RestaurantCard name = 'Best Restaurant' dist = '0.5' cuisine = 'American' score = '4.7' reviews = '300' imageLink={require ('../assets/images/testfood.jpg')} navigation={navigation} />
-	    <RestaurantCard name = 'Bester Restaurant' dist = '0.6' cuisine = 'American, Fusion' score = '3.3' reviews = '400' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation} />
-	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '4.4' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')} navigation={navigation} />
-	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '4.3' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation}/>
-	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '2.8' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')} navigation={navigation} />
-	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '3.7' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation}/>
+	    <RestaurantCard name = 'Bester Restaurant' dist = '0.6' cuisine = 'American, Fusion' score = '3.3' reviews = '400' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation} originName='萬山紅蘭州拉麵'/>
+	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '4.4' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')} navigation={navigation} originName='萬山紅蘭州拉麵'/>
+	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '4.3' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation} originName='萬山紅蘭州拉麵'/>
+	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '2.8' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')} navigation={navigation} originName='萬山紅蘭州拉麵'/>
+	    <RestaurantCard name = 'Bestest Restaurant' dist = '0.7' cuisine = 'American, Fusion, Contemporary' score = '3.7' reviews = '500' imageLink={require ('../assets/images/testfood.jpg')}  navigation={navigation} originName='萬山紅蘭州拉麵'/>
 	    </ScrollView>
 	    </View>
 	    </SafeAreaView>

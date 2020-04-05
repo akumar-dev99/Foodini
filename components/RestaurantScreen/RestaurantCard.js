@@ -14,6 +14,7 @@ export class RestaurantCard extends React.Component {
 	const {score} = this.props;
 	const {dist} = this.props;
 	const {reviews} = this.props;
+	const {originName} = this.props;
 	var stars = [];
 	for (var i = 0; i < 5; i++){
 	    if (i+ 1 <= score){
@@ -42,7 +43,7 @@ export class RestaurantCard extends React.Component {
 	    }
 	}
 	return (
-		<TouchableHighlight style={styles.cardContainer} underlayColor= '#EEEEEE' onPress = { () => {navigation.navigate('SelectedRestaurant', {name:name, imageLink: imageLink, cuisine: cuisine, score: score, dist: dist})}}>
+		<TouchableHighlight style={styles.cardContainer} underlayColor= '#EEEEEE' onPress = { () => {navigation.navigate('SelectedRestaurant', {name:name, originName: originName, imageLink: imageLink, cuisine: cuisine, score: score, dist: dist})}}>
 		<View style = {{ flex: 1, flexDirection: 'row'}}>
 		
 		<View style = {{flex: 2, paddingRight: 5}}>
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
 	shadowOffset: {width: 0, height: 4},
 	shadowOpacity: 1,
 	elevation: 10,
-	shadowRadius: 4,
+	shadowRadius: 4
 	
     }
 });

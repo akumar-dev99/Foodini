@@ -11,100 +11,56 @@ export class RestaurantHeader extends React.Component{
 	const {open} = this.props;
 	const {close} = this.props;
 	const {dist} = this.props;
+	const address = '44-13 Kissena Blvd Flushing, NY';
 	const {score} = this.props;
+	const originName = '萬山紅蘭州拉麵';
 	return(
+	    <View>
 		<View style={{height: 200}}>
-		<ImageBackground source = {imageLink} style={{flex:1}} >
-		<View style={styles.coverContainer}>
-		
-		<View style={{flex: 2}}>
-		<Text style={styles.title}>
-		{name}
-	    </Text>
-	    </View>
-		
-		<View style ={styles.descriptionContainer}>
-		
-		<View style = {styles.descriptionRow}>
-		
-	    <View style = {styles.descriptionLeft}>
-		<Text style = {styles.description}>
-		{cuisine}
-	    </Text>
-		</View>
-		<View style={styles.descriptionRight}>
-	    <Text style= {styles.description}>
-		{score} / 5
-	    </Text>
-		</View>
+		<ImageBackground source = {imageLink} style={{flex:1, borderTopRightRadius: 15, borderTopLeftRadius: 15, overflow: 'hidden', shadowColor:'black', shadowOpacity: 1, shadowRadius: 2, shadowOffset: {width:0, height: 1},elevation: 5}}>
+		<View style={{flex: 1, flexDirection:'column-reverse', paddingLeft: 10, paddingRight: 10}}>
+
+		<View style={{flex: 0, flexDirection:'row', justifyContent:'space-between'}}>
+		<Text style={styles.subtitle}>{originName}</Text>
+		<Text style={styles.subtitle}>{score} <Text style={{fontSize: 10}} >avg dish </Text></Text>
 		</View>
 		
-	    
-	    <View style = {styles.descriptionRow}>
-		<View style={styles.descriptionLeft}>
-		<Text style={styles.description}>
-		{open} - {close}
-	    </Text>
+		<Text style={styles.title}>{name} </Text>
 		</View>
-		<View style={styles.descriptionRight}>
-	    <Text style = {styles.description}>
-		{dist} mi
-	    </Text>
-		</View>
-		</View>
-		
-	    </View>
-	    </View>
 		</ImageBackground>
 		</View>
+
+		<View style={{flexDirection:'row', backgroundColor: 'white', flex: 1, padding: 5}}>
+		<View style={{flex: 1}}>
+		<Text>Open</Text>
+		<Text>{address}</Text>
+		</View>
+		
+		<View style={{flex: 1, alignItems:'flex-end'}}>
+		<Text>{open}-{close}</Text>
+		<Text>{dist} mi</Text>
+		</View>
+		</View>
+
+	    </View>
 	);
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-	flex: 1
-    },
-    contentContainer: {
-	flexDirection: 'column',
-    },
-    coverContainer:{
-	backgroundColor: 'rgba(0,0,0,0.3)',
-	flex: 1,
-	flexDirection: 'column'
-    },
-    title:{
-	paddingTop: 10,
-	paddingLeft: 10,
-	fontSize: 30,
+    title: {
 	color: 'white',
-	fontFamily: 'Roboto',
-	fontWeight: 'bold'
+	fontSize: 24,
+	textShadowColor: 'black',
+	textShadowRadius: 0.5,
+	textShadowOffset: {width: 0.5, height: 0.5},
     },
-    descriptionLeft:{
-	flex: 1
-    },
-    descriptionRight:{
-	flex: 1,
-	flexDirection: 'row-reverse'
-    },
-    description:{
-	fontSize: 17,
+    subtitle: {
 	color: 'white',
-	fontFamily: 'Roboto',
-	fontWeight: "bold"
-    },
-    descriptionContainer:{
-	flex: 1,
-	flexDirection: 'column',
-	justifyContent: 'flex-end',
-	paddingLeft: 10,
-	paddingRight: 10
-    },
-    descriptionRow:{
-	flexDirection: 'row',
-	marginLeft: 10,
-	marginRight: 10
+	fontSize: 16,
+	textShadowColor: 'black',
+	textShadowRadius: 0.5,
+	textShadowOffset: {width: 0.5, height: 0.5}
     }
 
 });

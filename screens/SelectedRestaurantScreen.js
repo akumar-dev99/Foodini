@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Image, ImageBackground, View, Text as RNText } from 'react-native';
+import { StyleSheet, Image, ImageBackground, View, Text as RNText,FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from '../components/StyledText';
 import { RestaurantHeader } from '../components/RestaurantScreen/RestaurantHeader';
 import { RestaurantMenu } from '../components/RestaurantScreen/RestaurantMenu';
-
+import { RestaurantContact } from '../components/RestaurantScreen/RestaurantContact';
 export default function SelectedRestaurantScreen({ navigation, route }){
     const {name} = route.params;
     const {imageLink} = route.params;
@@ -13,6 +13,7 @@ export default function SelectedRestaurantScreen({ navigation, route }){
     const open = '10:00AM';
     const close = '11:00PM';
     const {dist} = route.params;
+    const {originName} = route.params;
     const menu = {};
     for (var i = 1; i < 10; i++){
 	menu['food'+i] = Math.floor(Math.random()* 1000)/100;
@@ -20,57 +21,42 @@ export default function SelectedRestaurantScreen({ navigation, route }){
     navigation.setOptions({title: name});
     return (
 	    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-	    <RestaurantHeader name = {name} imageLink = {imageLink} cuisine = {cuisine} open = {open} close = {close} dist = {dist} score={score}/>
+	    <View style={styles.card}>	    	    
+	    <RestaurantHeader name={name} imageLink={imageLink} cuisine={cuisine} open={open} close={close} dist={dist} score={score} originName={originName}/>
+	    <View style={{marginTop:15}}>
 	    <RestaurantMenu menu={menu}/>
-
+	    <RestaurantContact/>
+	    </View>
+	    </View>
 	    </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    card:{
+	marginTop: 10,
+	marginLeft: 30,
+	marginRight: 30,
+	backgroundColor: '#E1E1E1',
+	borderTopRightRadius: 15,
+	borderTopLeftRadius: 15,
+	shadowColor: '#000000',
+	shadowOffset: {width: 0, height: 4},
+	shadowOpacity: 1,
+	elevation: 10,
+	shadowRadius: 4,
+	borderWidth: 0.3,
+	borderColor: '#333333'
+	
+    },
     container: {
+	backgroundColor: '#FFA235',
 	flex: 1
     },
     contentContainer: {
 	flexDirection: 'column',
+
     },
-    coverContainer:{
-	backgroundColor: 'rgba(0,0,0,0.3)',
-	flex: 1,
-	flexDirection: 'column'
-    },
-    title:{
-	paddingTop: 10,
-	paddingLeft: 10,
-	fontSize: 30,
-	color: 'white',
-	fontFamily: 'Roboto',
-	fontWeight: 'bold'
-    },
-    descriptionLeft:{
-	flex: 1
-    },
-    descriptionRight:{
-	flex: 1,
-	flexDirection: 'row-reverse'
-    },
-    description:{
-	fontSize: 17,
-	color: 'white',
-	fontFamily: 'Roboto',
-	fontWeight: "bold"
-    },
-    descriptionContainer:{
-	flex: 1,
-	flexDirection: 'column',
-	justifyContent: 'flex-end',
-	paddingLeft: 10,
-	paddingRight: 10
-    },
-    descriptionRow:{
-	flexDirection: 'row',
-	marginLeft: 10,
-	marginRight: 10
-    }
+
 
 });

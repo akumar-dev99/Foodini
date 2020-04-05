@@ -8,7 +8,7 @@ export class RestaurantMenu extends React.Component{
 	const {menu} = this.props;
 	const contents = Object.keys(menu).map(function (food){
 		    return (
-			    <View key= {food} style={{flexDirection: 'row', justifyContent:'space-between'}}>
+			    <View key= {food} style={{height:15, borderBottomWidth:0.25, borderColor: '#777777',marginBottom: 7, flexDirection: 'row', justifyContent:'space-between'}}>
 			    <Text>
 			    {food}
 			</Text>
@@ -19,7 +19,7 @@ export class RestaurantMenu extends React.Component{
 		    );
 		});
 	return(
-		<View style={{borderTopColor: 'black', padding: 10, borderTopWidth: 0.5, backgroundColor:'white',marginTop:10}}>
+		<View style={{ padding: 10, backgroundColor:'white', paddingTop:0}}>
 		<Text style={{fontWeight: 'bold', fontSize: 18}}>
 		Menu
 	    </Text>
