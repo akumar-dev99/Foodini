@@ -1,5 +1,5 @@
-[
-    {
+{
+    0: {
 	name: "Red Mountain Noodle House",
 	rating: 4.7,
 	description: "Serving traditional Lanzhou hand pulled noodles",
@@ -68,6 +68,6 @@
 	    }
 	]
     }
-]
+}
 		
 		
