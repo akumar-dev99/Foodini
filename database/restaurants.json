@@ -1,6 +1,5 @@
 [
     {
-	ID: "0",
 	name: "Red Mountain Noodle House",
 	rating: 4.7,
 	description: "Serving traditional Lanzhou hand pulled noodles",
@@ -59,7 +58,7 @@
 	menu: [
 	    {
 		ID: "0",
-		IDinDishes: "0",
+		dishID: "0",
 		name: "Hand-Pull Noodle w. House Special Soup",
 		posts: [
 		    "0",
