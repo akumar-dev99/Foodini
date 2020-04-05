@@ -15,14 +15,15 @@ import DetailsScreen from './screens/DetailsScreen';
 import DishDetailScreen from './screens/DishDetailScreen';
 import MoreImage from './components/DishDetailScreen/MoreImage';
 import Tastelike from './components/DishDetailScreen/Tastelike';
-import Review from './components/DishDetailScreen/Review';
-
+import Spalsh from './screens/Spalsh';
 
 import useLinking from './navigation/useLinking';
 
 // for sign in observer
 import firebase from './utils/firebaseConfig';
 import {decode, encode} from 'base-64'
+import Splash from './screens/Spalsh';
+import DishSearchScreen from './components/DishDetailScreen/DishSearchScreen';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -53,6 +54,7 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           'rubik': require('./assets/fonts/Rubik-Regular.ttf'),
+          'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -86,6 +88,13 @@ export default function App(props) {
             ) : (
               <>
                 <Stack.Screen 
+                  name="Root" 
+                  component={Splash} 
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
                   name="Login" 
                   component={LoginScreen} 
                   options={{
@@ -111,7 +120,8 @@ export default function App(props) {
             <Stack.Screen name="DishDetails" component={DishDetailScreen} />
             <Stack.Screen name="MoreImage" component={MoreImage} />
             <Stack.Screen name="Tastelike" component={Tastelike} />
-            <Stack.Screen name="Review" component={Review} />
+            <Stack.Screen name="DishSearch" component={DishSearchScreen} />
+           
           </Stack.Navigator>
         </NavigationContainer>
       </View>
