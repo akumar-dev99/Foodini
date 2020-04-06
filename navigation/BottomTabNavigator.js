@@ -5,13 +5,15 @@ import { Text } from '../components/StyledText';
 
 // Import Screens
 import ProfileScreen from '../screens/ProfileScreen';
-import DishScreen from '../screens/DishScreen';
 import RestaurantScreen from '../screens/RestaurantScreen';
 import PostScreen from '../screens/PostScreen';
 import SocialScreen from '../screens/SocialScreen';
 
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
+
+// import the Dish navigator
+import DishStackNavigator from '../navigation/DishStackNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Profile';
@@ -32,15 +34,14 @@ export default function BottomTabNavigator({navigation, route, user}) {
       }}
     >
       <BottomTab.Screen
-        name="Dishes"
+        name="Dish"
+        component={DishStackNavigator}
         options={{
-          title: 'Dishes',
+          title: 'Dish',
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="md-pizza" />,
         }}
-      >
-        {(props) => <DishScreen {...props} user={user}/>}
-      </BottomTab.Screen>
+      />
       <BottomTab.Screen
         name="Restaurants"
         options={{
