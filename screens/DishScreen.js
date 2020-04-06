@@ -36,6 +36,8 @@ export default class DishScreen extends Component{
   render() {
   const { search } = this.state;
 
+
+export default function DishScreen() {
   return (
     <Container>
     <SafeAreaView style={{flex: 1}}>

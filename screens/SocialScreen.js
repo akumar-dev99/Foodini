@@ -4,7 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from '../components/StyledText';
 
 export default function SocialScreen() {
-  console.log("Social Screen has mounted!")
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>

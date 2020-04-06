@@ -1,0 +1,37 @@
+{
+    0: {
+	cuisine:[
+	    "Chinese", "Lanzhou"
+	],
+	description: "Traditional hand pulled noodles with a beef broth. Served with slices of marinated beef",
+	popularity: 4,
+	ingredients: [
+	    "flour", "water", "beef"
+	],
+	name: "Beef Hand Pulled Noodles",
+	origin: "Lanzhou, China",
+	pictures: [
+	    "link0", "link1"
+	],
+	posts: [
+	    "0"
+	],
+	preference: {
+	    halal: false,
+	    kosher: false,
+	    vegan: false,
+	    vegetarian: false
+	},
+	restaurants: [
+	    "0"
+	],
+	taste:{
+	    appetizing: 25,
+	    chewy: 20,
+	    hearty: 30,
+	    light: 17,
+	    smooth: 15
+	},
+	traditionalName: "牛肉兰州拉面"
+    }
+}

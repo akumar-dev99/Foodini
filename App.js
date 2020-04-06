@@ -1,86 +1,68 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View, YellowBox } from 'react-native';
+
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
-import useLinking from './navigation/useLinking';
+// for authentication
+import { useAuth } from './utils/auth';
+import { userContext } from './utils/auth';
 
-// for sign in observer
-import firebase from './utils/firebaseConfig';
+// for firestore and storage
 import {decode, encode} from 'base-64'
 import Splash from './screens/Spalsh';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
+// ignore timer warnings
 YellowBox.ignoreWarnings(['Setting a timer']);
 
-var auth = firebase.auth();
 const Stack = createStackNavigator();
 
-export default function App(props) {
-  // States for loading
-  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const [authState, setState] = React.useState(null);
-
-  const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
+export default function App() {
+  // save return values of useAuth hook
+  const { initializing, user } = useAuth();
 
   // Load any resources or data that we need prior to rendering the app
+  async function loadResourcesAndDataAsync() {
+    // Prevent the SplashScreen from autohiding.
+    SplashScreen.preventAutoHide();
+    // Load fonts
+    await Font.loadAsync({
+      ...Ionicons.font,
+      'rubik': require('./assets/fonts/Rubik-Regular.ttf'),
+      'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+    });
+  }
+
   React.useEffect(() => {
-    async function loadResourcesAndDataAsync() {
-      try {
-        SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
-
-        // Load fonts
-        await Font.loadAsync({
-          ...Ionicons.font,
-          'rubik': require('./assets/fonts/Rubik-Regular.ttf'),
-          'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
-        });
-      } catch (e) {
-        // We might want to provide this error information to an error reporting service
-        console.warn(e);
-      } finally {
-        setLoadingComplete(true);
-        SplashScreen.hide();
-        const unsubscribe = auth.onAuthStateChanged(userDetails => {
-          console.log(userDetails);
-          setState(userDetails)
-        });
-        return unsubscribe;
-      }
-    }
+    // when component mounts load all the necessary resources
+    // such as font and Ionicons
     loadResourcesAndDataAsync();
-  }, [auth]);
+  }, []);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return null;
-  } else {
-
+  if(initializing) return null;
+  else {
+    SplashScreen.hide();
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            {(authState) ? (
-              <Stack.Screen name="Root">
-                {(props) => <BottomTabNavigator {...props} user={authState}/>} 
-              </Stack.Screen>
+      <userContext.Provider value = {{ user }}>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <NavigationContainer>
+            {(user) ? (
+              <BottomTabNavigator/> 
             ) : (
-              <>
+              <Stack.Navigator>
                 <Stack.Screen 
                   name="Root" 
                   component={Splash} 
@@ -109,15 +91,13 @@ export default function App(props) {
                     headerShown: true,
                   }}
                 />
-              </>
+              </Stack.Navigator>
             )}
-
-           
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+          </NavigationContainer>
+        </View>
+      </userContext.Provider>
     );
-  }
+  }  
 }
 
 const styles = StyleSheet.create({
