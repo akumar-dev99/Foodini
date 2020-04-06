@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { ActivityIndicator, StyleSheet, View, TouchableOpacity, Text as RNText, ScrollView, Button, SafeAreaView} from 'react-native';
+import { ActivityIndicator, StyleSheet, View, TouchableOpacity, 
+  Text as RNText, ScrollView, Button, SafeAreaView } from 'react-native';
 import { Text } from '../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 import { Badge, ListItem, SearchBar } from 'react-native-elements';
@@ -8,25 +9,57 @@ import { Badge, ListItem, SearchBar } from 'react-native-elements';
 import UserAvatar from '../components/ProfileScreen/UserAvatar';
 
 // Link screen to firebase functionality
+import { useSession } from '../utils/auth';
 import { useFirestoreDoc } from '../utils/db';
 import { logout } from '../utils/auth';
 
-export default function ProfileScreen({ navigation, route, user }) {
-
+export default function ProfileScreen({ navigation, route, }) {
+  navigation.setOptions({
+    headerRight: () => {
+        return (
+            <View style={{flexDirection: "row", flexWrap: "nowrap", marginRight: 5,}}>
+                <TouchableOpacity style={{ padding: 10}}
+                    onPress={() => {
+                      if(data) { 
+                        navigation.navigate("Edit Profile", {
+                          data,
+                        }); 
+                      }
+                    }}    
+                >
+                    <Ionicons
+                        name="ios-build"
+                        size={30}
+                        color="#333"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10}} 
+                    onPress={logout}
+                >
+                    <Ionicons
+                        name="ios-log-out"
+                        size={30}
+                        color="#333"
+                    />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+  })
 
   // data retrieval
+  const user = useSession();
   const { isLoading, data } = useFirestoreDoc('users', user.uid);
   // retrive the data for the user, using the firestore doc function. First parameter is collection name
   // while the second is the name of the document to query.
-  
   return (
-    <>
+    <React.Fragment>
       { isLoading && <Loading/>}
       { !isLoading && 
       <SafeAreaView style={styles.container} >
         <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
 
-          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", borderColor: "#fefefe", borderWidth: 1, elevation: 5,}}>
+          <View style={{ padding: 15, paddingBottom: 0, backgroundColor: "#fefefe", elevation: 5,}}>
           {/* Introduction Section */}
           <View style={styles.introductionContainer}>
               <View style={{marginRight: 10,}}>
@@ -37,7 +70,7 @@ export default function ProfileScreen({ navigation, route, user }) {
                 <Text style={{fontSize: 22,}}>{data.info.firstname + " " + data.info.lastname}</Text>
                 <ScrollView style={{marginTop: 5, }}> 
                   <Text style={{color: "#5a5d81", textAlign: "left",}}>
-                    {data.info.bio} {data.info.bio} {data.info.bio}
+                    {data.info.bio}
                     </Text> 
                 </ScrollView>
               </View>
@@ -86,22 +119,24 @@ export default function ProfileScreen({ navigation, route, user }) {
                 <Text style={{fontSize:15, color: "#5a5d81"}}>Cultural Preferences</Text>
               </View>
               <View style={{paddingVertical: 10, flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
-                {data.preferences.cultures.map((x, i) => {
-                  return (
-                    <Badge 
-                      badgeStyle={{
-                        backgroundColor: "#dbdbdb", 
-                        borderColor: "#cccccc",
-                        borderWidth: 0.5,
-                        elevation: 1,
-                        padding: 13, 
-                        margin: 3, 
-                      }} 
-                      key={i} 
-                      value={<Text style={{color: "#555555", }}> {x} </Text>} 
-                    />
-                  ) 
-                })}
+                {
+                  data.preferences.cultures.map((x, i) => {
+                    return (
+                      <Badge 
+                        badgeStyle={{
+                          backgroundColor: "#dbdbdb", 
+                          borderColor: "#cccccc",
+                          borderWidth: 0.5,
+                          elevation: 1,
+                          padding: 13, 
+                          margin: 3, 
+                        }} 
+                        key={i} 
+                        value={<Text style={{color: "#555555", }}> {x} </Text>} 
+                      />
+                    ) 
+                  })
+                }
               </View>
             </View>
 
@@ -129,11 +164,10 @@ export default function ProfileScreen({ navigation, route, user }) {
               </View>
             </View>
         </View>
-        <Button title="logout" onPress={() => { logout() }}/>
         </ScrollView> 
       </SafeAreaView>
       }
-    </>
+    </React.Fragment>
   );
 }
 

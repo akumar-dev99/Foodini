@@ -12,10 +12,18 @@ import { useIsFocused } from '@react-navigation/native';
 // for camera control icons 
 import { Ionicons } from '@expo/vector-icons';
 
+const CAMERA_RATIO = "4:3"
+
 export default function PostPictureScreen({navigation, route, user}) {
   const [hasPermission, setHasPermission] = React.useState(null);
   const [type, setType] = React.useState(Camera.Constants.Type.back);
+  const [size, setSize] = React.useState(null); // for picture size that is taken by the camera
+
+  // to re-render camera component once add post tab is clicked again after
+  // being clicked away
   const isFocused = useIsFocused();
+
+  // variable pointing to the Camera instance ref
   var camera;
 
   React.useEffect(() => {
@@ -25,26 +33,29 @@ export default function PostPictureScreen({navigation, route, user}) {
     })();
   }, [])
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+  if (hasPermission === null) { return <View />; }
+  if (hasPermission === false) { return <Text>No access to camera</Text>; }
 
   const onPictureSaved = photo => {
     navigation.navigate('Form', { data: photo })
   }
 
+  const getPictureSizes = async () => {
+    let availableSizes = await camera.getAvailablePictureSizesAsync(CAMERA_RATIO);
+    setSize(availableSizes);
+  }
+
   return (
     <View style={{flex: 1,}}>
       { isFocused &&
-      <Camera style={{ flex: 1, }} type={type} ratio="4:3"
-        ref={(ref) => { camera = ref; }}>
-
+      <Camera style={{ flex: 1, }} type={type} ratio={CAMERA_RATIO} 
+        ref={(ref) => { camera = ref; }} onCameraReady={getPictureSizes} 
+        pictureSize={size ? size[3] : null}
+      >
         <View style={{flex: 1, flexDirection: "column", justifyContent: "flex-end"}}>
           <View style={{paddingBottom: 20, flexDirection: "row", justifyContent: "space-evenly", 
               alignItems: "center",}}>
+
 
             <TouchableOpacity
               onPress={() => {
@@ -79,10 +90,6 @@ export default function PostPictureScreen({navigation, route, user}) {
         }
       </View>
   );
-
-
-
-
 }
 
 
