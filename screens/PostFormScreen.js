@@ -46,7 +46,6 @@ export default function PostFormScreen({navigation, route, user}) {
                 setTaste(tmp);
                 setPressed(false);
             }
-
         }
 
         return (
@@ -77,8 +76,12 @@ export default function PostFormScreen({navigation, route, user}) {
                 {
                     (formStatus == 0) &&
                     <React.Fragment>
-                        <Text style={{color: "#333333", fontSize: 20, marginBottom: 15,}}>What did you eat?</Text>
-                        <Text style={{color: "#666666", fontSize: 14, marginBottom: 5,}}>Name of Dish</Text>
+                        <Text style={{color: "#333333", fontSize: 20, marginBottom: 15,}}>
+                            What did you eat?
+                            </Text>
+                        <Text style={{color: "#666666", fontSize: 14, marginBottom: 5,}}>
+                            Name of Dish
+                        </Text>
                         <View style={styles.input}>
                             <TextInput
                                 placeholder="General Tso's Chicken"
@@ -87,8 +90,12 @@ export default function PostFormScreen({navigation, route, user}) {
                             />
                         </View>
 
-                        <Text style={{color: "#333333", fontSize: 20, marginVertical: 15,}}>How was your experience?</Text>
-                        <Text style={{color: "#666666", fontSize: 14, marginBottom: 5,}}>What keywords would you use?</Text>
+                        <Text style={{color: "#333333", fontSize: 20, marginVertical: 15,}}>
+                            How was your experience?
+                        </Text>
+                        <Text style={{color: "#666666", fontSize: 14, marginBottom: 5,}}>
+                            What keywords would you use?
+                        </Text>
 
                         <View style={{flexDirection: "row", flexWrap: "nowrap", }}>
                             <View style={{...styles.input, flex: 5, borderBottomRightRadius: 0, 

@@ -30,6 +30,7 @@ export default function BottomTabNavigator({user}) {
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{ 
         labelStyle: styles.tabLabel,
+        keyboardHidesTabBar: true,
       }}
     >
       <BottomTab.Screen
