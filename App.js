@@ -20,6 +20,7 @@ import { userContext } from './utils/auth';
 
 // for firestore and storage
 import {decode, encode} from 'base-64'
+import Splash from './screens/Spalsh';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -40,6 +41,7 @@ export default function App() {
     await Font.loadAsync({
       ...Ionicons.font,
       'rubik': require('./assets/fonts/Rubik-Regular.ttf'),
+      'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
     });
   }
 
@@ -61,6 +63,13 @@ export default function App() {
               <BottomTabNavigator/> 
             ) : (
               <Stack.Navigator>
+                <Stack.Screen 
+                  name="Root" 
+                  component={Splash} 
+                  options={{
+                    headerShown: false,
+                  }}
+                />
                 <Stack.Screen 
                   name="Login" 
                   component={LoginScreen} 
