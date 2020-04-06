@@ -14,17 +14,13 @@ export default class DishScreen extends Component{
   state = {
     search: '',
   };
-
+  
   updateSearch = search => {
     this.setState({ search });
   };
 
-
   componentDidMount(){
-
     this.scrollY = new Animated.Value(0)
-
-
     this.startHeaderHeight = 80
     if(Platform.OS== 'android') {
       this.startHeaderHeight = 100 + StatusBar.currentHeight
@@ -36,8 +32,6 @@ export default class DishScreen extends Component{
   render() {
   const { search } = this.state;
 
-
-export default function DishScreen() {
   return (
     <Container>
     <SafeAreaView style={{flex: 1}}>
@@ -197,9 +191,6 @@ export default function DishScreen() {
   );
 }
 }
-
-
-
 
 DishScreen.navigationOptions = {
   header: null,
