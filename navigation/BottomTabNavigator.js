@@ -3,16 +3,18 @@ import { StyleSheet, } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Import Screens
-import DishScreen from '../screens/DishScreen';
 import SocialScreen from '../screens/SocialScreen';
 
 // some components are navigators. Import navigators.
 import PostStackNavigator from './PostStackNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
+import DishStackNavigator from '../navigation/DishStackNavigator';
 import RestaurantNavigator from './RestaurantNavigator';
 
 // Import TabBarIcon Component
 import TabBarIcon from '../components/TabBarIcon';
+
+// import the Dish navigator
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Profile';
@@ -31,10 +33,10 @@ export default function BottomTabNavigator({user}) {
       }}
     >
       <BottomTab.Screen
-        name="Dishes"
-        component={DishScreen}
+        name="Dish"
+        component={DishStackNavigator}
         options={{
-          title: 'Dishes',
+          title: 'Dish',
           tabBarIcon: ({ focused }) => 
             <TabBarIcon focused={focused} name="md-pizza" />,
         }}
