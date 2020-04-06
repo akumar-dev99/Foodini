@@ -19,8 +19,12 @@ export default function ProfileScreen({ navigation, route, }) {
         return (
             <View style={{flexDirection: "row", flexWrap: "nowrap", marginRight: 5,}}>
                 <TouchableOpacity style={{ padding: 10}}
-                    onPress={() => { 
-                      navigation.navigate("Edit Profile"); 
+                    onPress={() => {
+                      if(data) { 
+                        navigation.navigate("Edit Profile", {
+                          data,
+                        }); 
+                      }
                     }}    
                 >
                     <Ionicons
@@ -115,22 +119,24 @@ export default function ProfileScreen({ navigation, route, }) {
                 <Text style={{fontSize:15, color: "#5a5d81"}}>Cultural Preferences</Text>
               </View>
               <View style={{paddingVertical: 10, flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
-                {data.preferences.cultures.map((x, i) => {
-                  return (
-                    <Badge 
-                      badgeStyle={{
-                        backgroundColor: "#dbdbdb", 
-                        borderColor: "#cccccc",
-                        borderWidth: 0.5,
-                        elevation: 1,
-                        padding: 13, 
-                        margin: 3, 
-                      }} 
-                      key={i} 
-                      value={<Text style={{color: "#555555", }}> {x} </Text>} 
-                    />
-                  ) 
-                })}
+                {
+                  data.preferences.cultures.map((x, i) => {
+                    return (
+                      <Badge 
+                        badgeStyle={{
+                          backgroundColor: "#dbdbdb", 
+                          borderColor: "#cccccc",
+                          borderWidth: 0.5,
+                          elevation: 1,
+                          padding: 13, 
+                          margin: 3, 
+                        }} 
+                        key={i} 
+                        value={<Text style={{color: "#555555", }}> {x} </Text>} 
+                      />
+                    ) 
+                  })
+                }
               </View>
             </View>
 
