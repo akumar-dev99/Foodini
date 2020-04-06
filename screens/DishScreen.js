@@ -8,7 +8,7 @@ import Culture from '../components/DishScreen/Culture';
 import DishType from '../components/DishScreen/DishType';
 import Filter from '../components/DishScreen/Filter';
 import DishDetailScreen from './DishDetailScreen';
-
+import * as Animatable  from 'react-native-animatable';
 
 export default class DishScreen extends Component{
   state = {
@@ -39,7 +39,9 @@ export default class DishScreen extends Component{
   return (
     <Container>
     <SafeAreaView style={{flex: 1}}>
-        <View style={{height: this.startHeaderHeight, backgroundColor: 'white',
+        <Animatable.View 
+         animation="fadeInUpBig"
+        style={{height: this.startHeaderHeight, backgroundColor: 'white',
           borderBottomWidth: 1, borderBottomColor: "white"}}>
         <View style={{
     flexDirection: 'row', padding: 10, backgroundColor: 'white',
@@ -57,12 +59,14 @@ export default class DishScreen extends Component{
        /*onChangeText={this.updateSearch}
         value={search} */ />
         </View>
-        </View>
+        </Animatable.View>
         
         <ScrollView
         scrollEventThrottle={16}>
 
-        <View style={{flexDirection: 'row', marginHorizontal: 15, 
+        <Animatable.View 
+         animation="fadeInUpBig"
+         View style={{flexDirection: 'row', marginHorizontal: 15, 
                     position: 'relative', top: 5, justifyContent: 'center', padding: 5}}>
         <Filter
         Fil="Filter"/>
@@ -73,21 +77,27 @@ export default class DishScreen extends Component{
         <Filter
         Fil="Price"/>
 
-        </View>
+        </Animatable.View>
 
       
-        <View style={{ flex: 1, backgroundColor:'white', paddingTop: 10}}>
-      <Text style={{fontSize: 20, fontWeight: '700', paddingHorizontal:20}}>
+        <Animatable.View 
+         animation="fadeInUpBig" style={{ flex: 1, backgroundColor:'white', paddingTop: 10}}>
+      <View style={{flexDirection: 'row',  }}>
+      <Text style={{fontSize: 20, fontWeight: '700', paddingHorizontal:20, justifyContent: 'flex-start'}}>
       
       Explore New Cuisines!
       </Text>
+      <TouchableOpacity>
+      <Text style={{ marginLeft: 90, textDecorationLine: 'underline', fontWeight: '700', borderWidth: 1, borderRadius: 5, padding: 2}}>View More</Text>
+      </TouchableOpacity>
+      </View>
       <View style={{ height: 220, marginTop: 10, paddingBottom: 10}}>
       
       
       <ScrollView horizontal={true}
       showsHorizontalScrollIndicator={false}>
       <TouchableOpacity  onPress = {() => this.props.navigation.navigate('DishDetails')}>
-      <Culture 
+      <Culture           
       imageUri={require ('../assets/images/dosa.jpg')}
       name = "INDIAN"/>
       </TouchableOpacity>
@@ -112,13 +122,20 @@ export default class DishScreen extends Component{
       
       </ScrollView>
       </View>
-      </View>
+      </Animatable.View>
 
-      <View style={{marginTop: 10}}>
+      <Animatable.View 
+         animation="fadeInUpBig"
+          style={{marginTop: 10}}>
+      <View style={{flexDirection: 'row'}}>
       <Text style={{fontSize: 24, fontWeight: '700', paddingHorizontal: 20}}>Trending Dishes</Text>
+
+      <TouchableOpacity>
+      <Text style={{ marginTop: 10, marginLeft: 115, textDecorationLine: 'underline', fontWeight: '700', borderWidth: 1, borderRadius: 5, padding: 2}}>View More</Text>
+      </TouchableOpacity>
+      </View>
       
-      
-        <View style={{paddingHorizontal: 25, marginTop: 20, flexDirection: 'row', flexWrap: 'wrap', marginLeft: 10}}>
+        <View style={{paddingHorizontal: 25, marginTop: 20, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
       <TouchableOpacity  onPress = {() => this.props.navigation.navigate('DishDetails')}>
         <DishType
       imageUri={require ('../assets/images/samosa-620.jpg')}
@@ -164,16 +181,22 @@ export default class DishScreen extends Component{
       dish ="Butter Chicken"
       country="Type: Indian"
       price="ave. price: 3" />
-      
+        
+
       </View>    
-     </View>  
+     </Animatable.View>  
 
        </ScrollView>
+
+
+       
    </SafeAreaView>
     </Container>
   );
 }
 }
+
+
 
 
 DishScreen.navigationOptions = {
