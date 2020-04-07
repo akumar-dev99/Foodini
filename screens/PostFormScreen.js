@@ -19,40 +19,22 @@ export default function PostFormScreen({navigation, route, user}) {
     const [rating, setRating] = React.useState(null);
 
     const [keywordList, setKeywordList] = React.useState([]);
-    const [taste, setTaste] = React.useState([]);
-
-    console.log(route.params.data.height);
-    console.log(route.params.data.width);
-
+    const [taste, setTaste] = React.useState(null);
     const [formStatus, setFormStatus] = React.useState(0);
 
     function TasteButton(props) {
-        const [pressed, setPressed] = React.useState(taste.includes(props.title))
+        const [pressed, setPressed] = React.useState(props.title == taste);
 
-        const addTaste = () => {
-            if(!(taste.length == 2)) {
-                let tmp = taste;
-                tmp.push(props.title);
-                setTaste(tmp);
-                setPressed(true);
-            }
-        }
-
-        const removeTaste = () => {
-            let tmp = taste;
-            let index = tmp.indexOf(props.title);
-            if (index !== -1) {
-                tmp.splice(index, 1);
-                setTaste(tmp);
-                setPressed(false);
-            }
+        const press = () => {        
+            setTaste(props.title);
+            setPressed(true);
         }
 
         return (
             <TouchableOpacity style={pressed ? styles.tasteButtonSelected : styles.tasteButton}
                 onPress={() => {
-                    if(pressed) { removeTaste(); }
-                    else { addTaste(); }
+                    if(pressed) { return null }
+                    else { press(); }
                 }}
             >
                 <Text> {props.title} </Text>
@@ -94,7 +76,7 @@ export default function PostFormScreen({navigation, route, user}) {
                             How was your experience?
                         </Text>
                         <Text style={{color: "#666666", fontSize: 14, marginBottom: 5,}}>
-                            What keywords would you use?
+                            What Taste Tags would you use?
                         </Text>
 
                         <View style={{flexDirection: "row", flexWrap: "nowrap", }}>
@@ -176,15 +158,17 @@ export default function PostFormScreen({navigation, route, user}) {
                             />
                         </View>
                         <View style={{flexDirection: "row", flexWrap: "nowrap", justifyContent: "flex-end"}}>
-                            <TouchableOpacity style={{...styles.button, paddingVertical: 0, paddingHorizontal: 30, borderRadius: 5,}} onPress={() => {
+                            <TouchableOpacity style={{
+                                ...styles.button, paddingVertical: 10, 
+                                paddingHorizontal: 15, borderRadius: 5, borderWidth: 0.5, 
+                                backgroundColor: "#eeeeee", borderColor: "#cccccc", elevation: 0.5,
+                                }} onPress={() => {
                                     setFormStatus(1);
                                 }}
                             >
-                                <Ionicons
-                                    name="ios-arrow-round-forward"
-                                    color="#444444"
-                                    size={50}
-                                />
+                                <Text>
+                                    Next 
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </React.Fragment>
@@ -243,15 +227,17 @@ export default function PostFormScreen({navigation, route, user}) {
                             />
                         </View>
                         <View style={{flexDirection: "row", flexWrap: "nowrap", justifyContent: "flex-end"}}>
-                            <TouchableOpacity style={{...styles.button, paddingVertical: 0, paddingHorizontal: 30, borderRadius: 5,}} onPress={() => {
+                            <TouchableOpacity style={{
+                                ...styles.button, paddingVertical: 10, 
+                                paddingHorizontal: 15, borderRadius: 5, borderWidth: 0.5, 
+                                backgroundColor: "#eeeeee", borderColor: "#cccccc", elevation: 0.5,
+                                }} onPress={() => {
                                     setFormStatus(2);
                                 }}
                             >
-                                <Ionicons
-                                    name="ios-arrow-round-forward"
-                                    color="#444444"
-                                    size={50}
-                                />
+                                <Text>
+                                    Next 
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </React.Fragment>
@@ -312,19 +298,19 @@ const styles = StyleSheet.create({
     },
     tasteButton: {
         padding: 15, 
-        backgroundColor: "#dddddd",
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: "#bbbbbb",
-        elevation: 0,
+        backgroundColor: "#dfdfdf",
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: "#bcbcbc",
+        elevation: 1,
         margin: 4,
     },
     tasteButtonSelected: {
         padding: 15, 
-        backgroundColor: "#999999",
-        borderRadius: 15,
+        backgroundColor: "#bbbbbb",
+        borderRadius: 10,
         borderWidth: 1, 
-        borderColor: "#777777",
+        borderColor: "#999999",
         margin: 4,
     }
 });

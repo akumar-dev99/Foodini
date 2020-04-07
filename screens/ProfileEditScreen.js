@@ -11,21 +11,15 @@ import { UpdateDocTracker } from '../utils/db';
 // get useSession to obtain user
 import { useSession } from '../utils/auth';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
 export default function ProfileEditScreen({ navigation, route, }) {
+  // TODO: Initialize state variables in score of ProfileEditScreen
+  // function just to store the changed values. These states will not be
+  // used as values in TextInputs in the functions (EditName/EditCity) etc.
+  // This is to replace individual update buttons with one button on the 
+  // the header
+  // ======================================================================
   const user = useSession();
-  /*
-  Sections in Profile Screen
-  1. Name EDITABLE
-  2. Bio EDITABLE
-  3. Avatar 
-  4. Cultural Preferences EDITABLE
-  5. Address EDITABLE
-  6. City EDITABLE
-  7. Ethnicity EDITABLE
-  */
+  // Avatar NOT EDITABLE AT THE MOMENT (TODO)
   function EditName({ initialFirst, initialLast }) {
     const [first, setFirst] = React.useState(initialFirst);
     const [last, setLast] = React.useState(initialLast);
@@ -70,6 +64,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
             <UpdateDocTracker 
               collectionName="users" 
               docName={user.uid}
+              icon="ios-checkmark-circle-outline"
               updatePayload={{
                 "info.firstname": first,
                 "info.lastname": last,
@@ -111,6 +106,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
             alignItems: "center", padding: 5,}}>
             <UpdateDocTracker 
               collectionName="users" 
+              icon="ios-checkmark-circle-outline"
               docName={user.uid}
               updatePayload={{
                 "info.bio": bio,
@@ -225,6 +221,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
             alignItems: "center", padding: 5,}}>
             <UpdateDocTracker 
               collectionName="users" 
+              icon="ios-checkmark-circle-outline"
               docName={user.uid}
               updatePayload={{
                 "preferences.cultures": cultures,
@@ -257,6 +254,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
             alignItems: "center", padding: 5,}}>
             <UpdateDocTracker 
               collectionName="users" 
+              icon="ios-checkmark-circle-outline"
               docName={user.uid}
               updatePayload={{
                 "info.location.city": city,
@@ -289,6 +287,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
             alignItems: "center", padding: 5,}}>
             <UpdateDocTracker 
               collectionName="users" 
+              icon="ios-checkmark-circle-outline"
               docName={user.uid}
               updatePayload={{
                 "info.ethnicity": ethnicity,
@@ -323,7 +322,7 @@ export default function ProfileEditScreen({ navigation, route, }) {
           initialCity={route.params.data.info.location.city}
         />
       </View>
-      <View style={{ marginBottom: 10, }}>
+      <View style={{ marginBottom: 30, }}>
         <EditEthnicity
           initialEthnicity={route.params.data.info.ethnicity}
         />

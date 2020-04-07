@@ -50,7 +50,7 @@ export function createNewUserDoc(uid, first, last, allergyList, restrictionList)
     return db.collection("users").doc(uid).set(data);
 }
 
-export function UpdateDocTracker({ collectionName, docName, updatePayload }) {
+export function UpdateDocTracker({ collectionName, docName, updatePayload, icon }) {
     // NOTE: for nested object updates, provide field in format
     // "higherLevelField.lowerLevelField"
     var docRef = db.collection(collectionName).doc(docName);
@@ -72,7 +72,7 @@ export function UpdateDocTracker({ collectionName, docName, updatePayload }) {
                 <TouchableOpacity style={{padding: 0, justifyContent: "center"}}
                     onPress={() => update(updatePayload)}>
                     <Ionicons
-                        name="ios-checkmark-circle-outline"
+                        name={icon}
                         size={30}
                         color="#329932"
                     />
