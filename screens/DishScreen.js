@@ -9,6 +9,9 @@ import DishType from '../components/DishScreen/DishType';
 import Filter from '../components/DishScreen/Filter';
 import DishDetailScreen from './DishDetailScreen';
 import * as Animatable  from 'react-native-animatable';
+import { SearchBar } from 'react-native-elements';
+
+
 
 export default class DishScreen extends Component{
   state = {
@@ -39,22 +42,22 @@ export default class DishScreen extends Component{
          animation="fadeInUpBig"
         style={{height: this.startHeaderHeight, backgroundColor: 'white',
           borderBottomWidth: 1, borderBottomColor: "white"}}>
-        <View style={{
-    flexDirection: 'row', padding: 10, backgroundColor: 'white',
-    marginHorizontal: 10, borderRadius: 20, shadowOffset:{width: 0, height:0},
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-    elevation:1,
-    marginTop: Platform.OS=='android'? 10 : null}}>
-      <Icon name="ios-search" size={30} color={'grey'} />
-      <TextInput
-       underlineColorAndroid="transparent"
-        placeholder="What do you want to try?"
-        placeholderTextColo="grey"
-        style={{flex: 1, fontWeight: '700'}}
-       /*onChangeText={this.updateSearch}
-        value={search} */ />
-        </View>
+        
+        
+        <SearchBar
+            placeholder="What do you want to try..."
+            onChangeText={this.updateSearch}
+	    containerStyle= {styles.containerStyle}
+	    inputContainerStyle = {styles.inputContainerStyle}
+	    inputStyle = {styles.inputStyle}
+	    lightTheme = {true}
+	    placeholderTextColor = {'#959595'}
+	    round = {true}
+            value={search}
+		/>
+
+
+
         </Animatable.View>
         
         <ScrollView
@@ -63,7 +66,8 @@ export default class DishScreen extends Component{
         <Animatable.View 
          animation="fadeInUpBig"
          View style={{flexDirection: 'row', marginHorizontal: 15, 
-                    position: 'relative', top: 5, justifyContent: 'center', padding: 5}}>
+                    position: 'relative', top: 5, justifyContent: 'center', padding: 5, marginBottom: 10}}>
+        
         <Filter
         Fil="Filter"/>
         <Filter
@@ -191,6 +195,26 @@ export default class DishScreen extends Component{
   );
 }
 }
+
+const styles = StyleSheet.create({
+  containerStyle: {
+backgroundColor: '#ffffff',
+borderWidth: 0
+  },
+  inputContainerStyle: {
+backgroundColor: '#f1f1f1'
+  },
+  inputStyle: {
+fontFamily: 'rubik',
+color: '#000000'
+  }
+
+  
+});
+  
+
+
+
 
 DishScreen.navigationOptions = {
   header: null,

@@ -12,7 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 // for camera control icons 
 import { Ionicons } from '@expo/vector-icons';
 
-const CAMERA_RATIO = "4:3"
+const CAMERA_RATIO = "16:9"
 
 export default function PostPictureScreen({navigation, route, user}) {
   const [hasPermission, setHasPermission] = React.useState(null);

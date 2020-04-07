@@ -2,6 +2,7 @@
 import * as React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 import DishDetailScreen from '../screens/DishDetailScreen';
 import MoreImage from '../components/DishDetailScreen/MoreImage';
 import Tastelike from '../components/DishDetailScreen/Tastelike';
@@ -18,12 +19,26 @@ export default function DishStackNavigator({ navigation, route, }) {
     return (
         <DishStack.Navigator initialRouteName={INITIAL_ROUTE_NAME} 
             options={{headerShown: true}}
-        >
-            <DishStack.Screen name="Dishes" component={DishScreen} />
-            <DishStack.Screen name="DishDetails" component={DishDetailScreen} />
-            <DishStack.Screen name="MoreImage" component={MoreImage} />
-            <DishStack.Screen name="Tastelike" component={Tastelike} />
-            <DishStack.Screen name="DishSearch" component={DishSearchScreen} />
+        >  
+            <DishStack.Screen
+                name="FOODINI" 
+                component={DishScreen}
+                style={{}}
+                 />
+           
+            <DishStack.Screen 
+                name="DishDetails" 
+                component={DishDetailScreen}
+                 />
+            <DishStack.Screen 
+                name="MoreImage" 
+                component={MoreImage} />
+            <DishStack.Screen 
+                name="Tastelike" 
+                component={Tastelike} />
+            <DishStack.Screen 
+                name="DishSearch" 
+                component={DishSearchScreen} />
         </DishStack.Navigator>
     )
 }

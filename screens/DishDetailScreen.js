@@ -18,24 +18,32 @@ import FloatingButton from '../components/DishDetailScreen/FloatingButton';
 
 export default class DishDetailScreen extends Component{
     
-      componentDidMount(){
-    
-        this.scrollY = new Animated.Value(0)
-    
-    
-        this.startHeaderHeight = 80
-        if(Platform.OS== 'android') {
-          this.startHeaderHeight = 100 + StatusBar.currentHeight
-        }    
-      }
+  state = {
+    search: '',
+  };
+  
+  updateSearch = search => {
+    this.setState({ search });
+  };
 
-      render() {
+  componentDidMount(){
+    this.scrollY = new Animated.Value(0)
+    this.startHeaderHeight = 80
+    if(Platform.OS== 'android') {
+      this.startHeaderHeight = 100 + StatusBar.currentHeight
+    }
+
+
+  }
+
+  render() {
+  const { search } = this.state;
       
       return (
         <Container>
         <SafeAreaView style={{flex: 1}}>  
 
-            <View style={{paddingLeft: 10, paddingRight: 10}}>
+            <View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
              <DishHead
                title="SAMOSA"
                 imageHead={require ('../assets/images/India.png')}
@@ -118,16 +126,16 @@ export default class DishDetailScreen extends Component{
 
 
           <View style={{paddingLeft: 10, paddingRight: 10}}>
-           <View style={{flexDirection:"row", justifyContent: 'space-between', backgroundColor: '#e2e2e2', width: '100%', paddingLeft: 20, paddingRight: 20, paddingBottom: 5, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
+           <View style={{flexDirection:"row", justifyContent: 'space-evenly', backgroundColor: '#e2e2e2', width: '100%', paddingLeft: 20, paddingRight: 20, paddingBottom: 5, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
            <TouchableOpacity style= {styles.review} onPress = {() => this.props.navigation.navigate('DishSearch')}>
            <Text style = {styles.text}>Dish Search</Text>
            </TouchableOpacity>
            <TouchableOpacity style= {styles.review} onPress = {() => this.props.navigation.navigate('Tastelike')}>
            <Text style = {styles.text}>Taste-Like</Text>
            </TouchableOpacity>
-           <TouchableOpacity style= {styles.review} onPress = {() => this.props.navigation.navigate('MoreImage')}>
+           {/*<TouchableOpacity style= {styles.review} onPress = {() => this.props.navigation.navigate('MoreImage')}>
            <Text style = {styles.text}>More Image</Text>
-           </TouchableOpacity>
+      </TouchableOpacity>*/}
            </View>
            </View>
         
