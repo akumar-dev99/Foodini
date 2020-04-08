@@ -57,9 +57,14 @@ export function UpdateDocTracker({ collectionName, docName, updatePayload, icon 
     const [isLoading, setIsLoading] = React.useState(null);
 
     async function update(payload) {
-        setIsLoading(true); // turn on the activity indicator
-        await docRef.update(payload);
-        setIsLoading(false);
+        try {
+            setIsLoading(true); // turn on the activity indicator
+            await docRef.update(payload);
+            setIsLoading(false);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     return (
